@@ -8,26 +8,24 @@ export const LoginInput = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter()
   const loginUser = async (email:string, password:string) => {
+    setIsLoading(true)
     await axios
       .post("http://localhost:9999/login", {
         password,
         email,
       })
       .then((res) => {
-        setIsLoading(true)
-        // const data = res.data;
         console.log(res);
+        alert('user found')
         router.push("/");
         localStorage.setItem("email", String(true));
       })
       .catch((err) => {
+        alert('user not found')
         console.log(err)
         setIsLoading(false);
       });
   };
-  // const changeRoute = () => {
-  //   router.replace("/");
-  // };
 
   return (
     <div
