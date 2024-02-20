@@ -9,18 +9,27 @@ export default function Home() {
   const activeStep = 0;
   const router = useRouter();
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null as Country | null);
 
   const currency = ()=>{
-    console.log(selectedCountry)
     router.push("/Balance")
   }
-
+  interface Value {
+    cca3: string;
+    name: {
+      common: string;
+    };
+  }
+  type Country = {
+    value: string;
+    label: string;
+  };
+  
   useEffect(() => {
     const fetchCountries = async () => {
       try {
         const response = await axios.get("https://restcountries.com/v3.1/all");
-        const countriesData = response.data.map((country) => ({
+        const countriesData = response.data.map((country:Value) => ({
           value: country.cca3,
           label: country.name.common,
         }));
@@ -40,6 +49,7 @@ export default function Home() {
         height: "100vh",
         backgroundColor: "white",
         display: "flex",
+        alignItems:'center',
         justifyContent: "center",
       }}
     >

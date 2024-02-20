@@ -3,7 +3,7 @@ import styles from "./styles/income_tracker.module.css";
 
 export default function Home() {
   return (
-    <div > 
+    <div >
       <div
         style={{
           height: "100vh",
@@ -39,7 +39,15 @@ export default function Home() {
         <body>
           <div className={styles.bodyone}>
             <div className={styles.bodyone1}></div>
-            <div className={styles.bodyone2}></div>
+            <div className={styles.bodyone2}>
+              <div className={styles.bodyone21}>
+                <div><svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="4" cy="4" r="4" fill="#84CC16" />
+                </svg></div>
+                <div>Your income</div>
+              </div>
+              <div className={styles.bodyone22}></div>
+            </div>
             <div className={styles.bodyone3}></div>
           </div>
           <div className={styles.bodytwo}>

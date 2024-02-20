@@ -3,32 +3,43 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 
 export const SignupInput = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
   const createUser = async () => {
     try {
+      setError('');
       setIsLoading(true);
+
+      // Password matching validation
+      if (password !== rePassword) {
+        setError('Passwords do not match');
+        return;
+      }
+
       const response = await axios.post('http://localhost:9999/signup', {
-        name: name,
-        password: password,
-        email: email,
+        name,
+        password,
+        email,
       });
-      // console.log(response)
+
       if (response.status === 200) {
         alert('User successfully created');
         router.push('login');
-      } 
+      }
     } catch (error) {
-        alert('User already taken');
+      setError('Error creating user. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
+  const isFormIncomplete = !name || !email || !password || !rePassword;
 
   return (
     <div>
@@ -86,12 +97,13 @@ export const SignupInput = () => {
             border: '1px solid #D1D5DB',
             backgroundColor: '#F3F4F6',
           }}
-          placeholder="Re-assword"
+          placeholder="Re-enter Password"
           type="password"
           value={rePassword}
           onChange={(e) => setRePassword(e.target.value)}
         ></input>
       </div>
+
       <div
         style={{
           width: '384px',
@@ -99,12 +111,14 @@ export const SignupInput = () => {
           padding: '0px 16px 0px 16px',
           borderRadius: '20px',
           gap: '4px',
-          backgroundColor: '#0166FF',
+          backgroundColor: isFormIncomplete ? '#0166FF' : '#0166FF',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          cursor: isFormIncomplete ? 'not-allowed' : 'pointer',
         }}
         onClick={createUser}
+        disabled={isFormIncomplete}
       >
         <div
           style={{
@@ -120,6 +134,12 @@ export const SignupInput = () => {
           {isLoading ? 'Signing up...' : 'Sign up'}
         </div>
       </div>
+
+      {error && (
+        <div style={{ color: 'red', marginTop: '8px' }}>
+          {error}
+        </div>
+      )}
     </div>
   );
 };

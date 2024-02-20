@@ -98,3 +98,15 @@
   border-radius: 18px;
   background-color:white ;
 }
+.bodyone21{
+  display: flex;
+  align-items: center;
+  height: 56px;
+  gap: 8px;
+  padding: 0px 30px;
+}
+.bodyone22{
+  /* display: flex;
+  align-items: center; */
+  height: 160px;
+}

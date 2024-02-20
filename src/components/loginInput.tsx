@@ -2,29 +2,46 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export const LoginInput = () => {
+interface LoginInputProps {}
+
+export const LoginInput: React.FC<LoginInputProps> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter()
-  const loginUser = async (email:string, password:string) => {
-    setIsLoading(true)
-    await axios
-      .post("http://localhost:9999/login", {
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const loginUser = async (email: string, password: string) => {
+    try {
+      setIsLoading(true);
+
+      // Basic client-side validation
+      if (!email.trim()) {
+        setError("Email is required");
+        return;
+      }
+
+      if (!password) {
+        setError("Password is required");
+        return;
+      }
+
+      await axios.post("http://localhost:9999/login", {
         password,
         email,
-      })
-      .then((res) => {
-        console.log(res);
-        alert('user found')
-        router.push("/");
-        localStorage.setItem("email", String(true));
-      })
-      .catch((err) => {
-        alert('user not found')
-        console.log(err)
-        setIsLoading(false);
       });
+
+      // Assuming login was successful
+      alert("User found");
+      router.push("/");
+      localStorage.setItem("email", String(true));
+    } catch (err) {
+      // Handle error appropriately
+      alert("User not found");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -61,7 +78,10 @@ export const LoginInput = () => {
             }}
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError(""); // Clear previous error when user changes input
+            }}
           />
           <input
             style={{
@@ -76,8 +96,12 @@ export const LoginInput = () => {
             placeholder="Password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError(""); // Clear previous error when user changes input
+            }}
           />
+          
           <div
             style={{
               width: "384px",
@@ -91,7 +115,7 @@ export const LoginInput = () => {
               justifyContent: "center",
               cursor: "pointer",
             }}
-            onClick={()=>loginUser(email, password)}
+            onClick={() => loginUser(email, password)}
           >
             <div
               style={{
@@ -107,6 +131,9 @@ export const LoginInput = () => {
               {isLoading ? "Logging in..." : "Log in"}
             </div>
           </div>
+            {error && (
+            <div style={{ color: "red", marginBottom: "16px" }}>{error}</div>
+          )}
         </div>
       </div>
     </div>

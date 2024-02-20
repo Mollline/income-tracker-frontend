@@ -1,12 +1,12 @@
 import { Stepper, Step, StepLabel } from "@material-ui/core";
-import { setEngine } from "crypto";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Home() {
   const steps = ["Currency", "Balance", "Finish"];
   const activeStep = 1;
-  const [email,setEmail]=useState()
+  const [email, setEmail] = useState<string>('');
+
   const router = useRouter();
 
   const balance = () => {
@@ -21,6 +21,7 @@ export default function Home() {
         backgroundColor: "white",
         display: "flex",
         justifyContent: "center",
+        alignItems: 'center'
       }}
     >
       <div
@@ -99,7 +100,7 @@ export default function Home() {
         <div
           style={{
             width: "384px",
-            height: "308px",
+            height: "325px",
             marginTop: "140px",
             left: "528px",
             gap: "32px",
@@ -158,37 +159,40 @@ export default function Home() {
                 display: "flex",
               }}
             >
-              Set up your cash balance 
+              Set up your cash balance
             </div>
           </div>
-          <div style={{width:'384px',height:'48px'}}> 
-          <input
-            style={{
-              width: "384px",
-              height: "64px",
-              padding: "16px",
-              borderRadius: "8px",
-              backgroundColor: "#F3F4F6",
-              border:'1px solid #D1D5DB'
-            }}
-            onChange={e => setEmail(e.target.value)}
-            value={email}
-            placeholder="email"
-            type="email"
-          ></input>
-          </div>
-          <div
-            style={{
-              width: "384px",
-              height: "48px",
-              fontFamily: "Roboto",
-              fontWeight: "400",
-              fontSize: "12px",
-              lineHeight: "16px",
-              color:'#475569'
-            }}
-          >
-           How much cash do you have in your wallet?
+          <div>
+            <div style={{ width: '384px', height: '48px' }}>
+              <input
+                style={{
+                  width: "384px",
+                  height: "48px",
+                  padding: "16px",
+                  borderRadius: "8px",
+                  backgroundColor: "#F3F4F6",
+                  border: '1px solid #D1D5DB'
+                }}
+                onChange={e => setEmail(e.target.value)}
+                value={email}
+                placeholder="email"
+                type="email"
+              ></input>
+            </div>
+            <div
+              style={{
+                width: "384px",
+                height: "48px",
+                fontFamily: "Roboto",
+                fontWeight: "400",
+                fontSize: "12px",
+                lineHeight: "16px",
+                color: '#475569',
+                margin:"10px 10px"
+              }}
+            >
+              How much cash do you have in your wallet?
+            </div>
           </div>
           <div
             style={{

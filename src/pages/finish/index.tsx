@@ -16,6 +16,7 @@ export default function Home() {
         height: "100vh",
         backgroundColor: "white",
         display: "flex",
+        alignItems:'center',
         justifyContent: "center",
       }}
     >
