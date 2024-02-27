@@ -31,7 +31,7 @@
   height: 32px;
   display: flex;
   align-items: center;
-  background-color: #0166FF;
+  background-color: #0166ff;
   justify-content: center;
   border-radius: 20px;
   color: white;
@@ -40,12 +40,12 @@
 .headtwo2 {
   width: 40px;
   height: 40px;
-  background-color: #0166FF;
+  background-color: #0166ff;
   border-radius: 20px;
 }
 
 .bodyone {
-  padding-top:32px;
+  padding-top: 32px;
   display: flex;
   gap: 24px;
   justify-content: center;
@@ -54,22 +54,23 @@
   width: 384px;
   height: 216px;
   border-radius: 18px;
-  background-color:blue ;
+  background-color: blue;
+  /* background-image:url("Large.png"); */
 }
 .bodyone2 {
   width: 384px;
   height: 216px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
 .bodyone3 {
   width: 384px;
   height: 216px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
-.bodytwo{
-  padding-top:32px;
+.bodytwo {
+  padding-top: 32px;
   display: flex;
   gap: 24px;
   justify-content: center;
@@ -78,16 +79,16 @@
   width: 588px;
   height: 284px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
 .bodytwo2 {
   width: 588px;
   height: 284px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
-.bodythree{
-  padding-top:32px;
+.bodythree {
+  padding-top: 32px;
   display: flex;
   gap: 24px;
   justify-content: center;
@@ -96,38 +97,43 @@
   width: 1200px;
   height: 456px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
-.bodyone21{
+.bodyone21 {
   display: flex;
   align-items: center;
   height: 56px;
   gap: 8px;
   padding: 0px 30px;
 }
-.bodyone22{
+.bodyone22 {
   padding: 0px 30px;
   height: 160px;
-  gap:16px
+  gap: 16px;
 }
-.bodyone221{
-  width:186px;
+.bodyone221 {
+  width: 186px;
   height: 72px;
-  gap: 4px
-  
+  gap: 4px;
 }
-.bodyone222{
+.bodyone222 {
   display: flex;
   width: (199px);
-  height:  (28px);
-  gap: 8px
+  height: (28px);
+  gap: 8px;
 }
-.bodyone2211{
+.bodyone2211 {
   font-family: Roboto;
   font-size: 36px;
   font-weight: 600;
   line-height: 40px;
   letter-spacing: 0em;
   text-align: left;
-  
+}
+.bodythree11 {
+  width: 1200px;
+  height: 56px;
+  padding: 16px, 24px, 16px, 24px;
+  border: 0px, 0px, 1px, 0px;
+  gap: 8px;
 }
