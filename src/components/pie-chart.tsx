@@ -41,7 +41,6 @@ function Dashboard() {
                 flexDirection: "column",
                 width: "588px",
                 borderRadius: "12px",
-                border: "1px solid #E5E5E5",
                 height:'284px',
             }}>
             <div

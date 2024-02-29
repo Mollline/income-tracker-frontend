@@ -31,7 +31,7 @@
   height: 32px;
   display: flex;
   align-items: center;
-  background-color: #0166FF;
+  background-color: #0166ff;
   justify-content: center;
   border-radius: 20px;
   color: white;
@@ -40,12 +40,12 @@
 .headtwo2 {
   width: 40px;
   height: 40px;
-  background-color: #0166FF;
+  background-color: #0166ff;
   border-radius: 20px;
 }
 
 .bodyone {
-  padding-top:32px;
+  padding-top: 32px;
   display: flex;
   gap: 24px;
   justify-content: center;
@@ -54,22 +54,22 @@
   width: 384px;
   height: 216px;
   border-radius: 18px;
-  background-color:blue ;
+  background-color: blue;
 }
 .bodyone2 {
   width: 384px;
   height: 216px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
 .bodyone3 {
   width: 384px;
   height: 216px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
-.bodytwo{
-  padding-top:32px;
+.bodytwo {
+  padding-top: 32px;
   display: flex;
   gap: 24px;
   justify-content: center;
@@ -78,16 +78,16 @@
   width: 588px;
   height: 284px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
 .bodytwo2 {
   width: 588px;
   height: 284px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
-.bodythree{
-  padding-top:32px;
+.bodythree {
+  padding-top: 32px;
   display: flex;
   gap: 24px;
   justify-content: center;
@@ -96,33 +96,32 @@
   width: 1200px;
   height: 456px;
   border-radius: 18px;
-  background-color:white ;
+  background-color: white;
 }
-.bodyone21{
+.bodyone21 {
   display: flex;
   align-items: center;
   height: 56px;
   gap: 8px;
   padding: 0px 30px;
 }
-.bodyone22{
+.bodyone22 {
   padding: 0px 30px;
   height: 160px;
-  gap:16px
+  gap: 16px;
 }
-.bodyone221{
-  width:186px;
+.bodyone221 {
+  width: 186px;
   height: 72px;
-  gap: 4px
-  
+  gap: 4px;
 }
-.bodyone222{
+.bodyone222 {
   display: flex;
   width: (199px);
-  height:  (28px);
-  gap: 8px
+  height: (28px);
+  gap: 8px;
 }
-.bodyone2211{
+.bodyone2211 {
   font-family: Roboto;
   font-size: 36px;
   font-weight: 600;
@@ -138,23 +137,94 @@
   display: flex;
   align-items: center;
   padding-left: 24px;
-  border-bottom: 1px #E2E8F0 solid;
+  border-bottom: 1px #e2e8f0 solid;
 }
-.bodythree12{
-  width:  1,200px;
+.bodythree12 {
+  width: 1, 200px;
   height: 456px;
   top: 652px;
   left: 120px;
-  border-radius: 12px; 
+  border-radius: 12px;
 }
-.bodythree121{
-  width:  1152px;
+.bodythree121 {
+  width: 1152px;
   height: 80px;
   border: 0px, 0px, 1px, 0px;
   justify-content: space-between;
-  border-bottom: 1px #E2E8F0 solid;
+  border-bottom: 1px #e2e8f0 solid;
   display: flex;
   align-items: center;
   padding: 0px 20px;
   margin-left: 20px;
+}
+.records {
+  width: 282px;
+  height: 1080px;
+  left: 120px;
+  border-radius: 12px;
+  border: 1px;
+  gap: 24px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+.recordAdd {
+  width: 250px;
+  height: 88px;
+  gap: 24px;
+
+}
+.add {
+  width: 250px;
+  height: 32px;
+  border-radius: 20px;
+  gap: 4px;
+  background-color: #0166FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.record_body {
+  display: flex;
+  margin-top: 24px;
+  gap: 24px;
+  justify-content: center;
+}
+.list {
+  width: 894px;
+  height: 980px;
+  top: 176px;
+  left: 426px;
+}
+.date {
+  width: 894px;
+  height: 95px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+.selectAll {
+  width: 894px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  align-items: center;
+  padding: 0px 24px;
+}
+.selectOne {
+  width: 894px;
+  height: 64px;
+  border-radius: 12px;
+  border: 1px;
+  justify-content: space-between;
+  background-color: white;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  padding: 0px 24px;
+  margin: 12px 0px;
 }

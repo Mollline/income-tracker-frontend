@@ -55,7 +55,7 @@
   height: 216px;
   border-radius: 18px;
   background-color: blue;
-  /* background-image:url("Large.png"); */
+  /* background-image: url("del.png"); */
 }
 .bodyone2 {
   width: 384px;
@@ -130,10 +130,11 @@
   letter-spacing: 0em;
   text-align: left;
 }
-.bodythree11 {
-  width: 1200px;
-  height: 56px;
-  padding: 16px, 24px, 16px, 24px;
-  border: 0px, 0px, 1px, 0px;
-  gap: 8px;
+.records {
+  width:  282px;
+  height: 1080px;
+  border-radius: 12px;
+  border: 1px black solid;
+  gap: 24px;
+  background-color: white;
 }

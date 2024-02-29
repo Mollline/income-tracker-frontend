@@ -1,11 +1,16 @@
 import React from "react";
 import styles from "./styles/income_tracker.module.css";
 import PieChartComponent from '@/components/pie-chart';
-// import BarChartComponent from "@/components/bar-chart";
+import {BarChartComponent} from "@/components/bar-chart";
 import { BodyOne2 } from "@/components/bodyone2";
 import { Bodythree1 } from "@/components/bodythree1";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter()
+  const Records= ()=>{
+    router.push('records')
+  }
   return (
     <div >
       <div
@@ -36,19 +41,21 @@ export default function Home() {
             <div>Records</div>
           </div>
           <div className={styles.headtwo}>
-            <div className={styles.headtwo1}>+ Record</div>
+            <div className={styles.headtwo1} onClick={Records}>+ Record</div>
             <div className={styles.headtwo2}></div>
           </div>
         </header>
         <body>
           <div className={styles.bodyone}>
-            <div className={styles.bodyone1}></div>
+            <div className={styles.bodyone1}>
+
+            </div>
             <BodyOne2 />
           </div>
           <div className={styles.bodytwo}>
             <div className={styles.bodytwo1}>
               <div>
-                {/* <BarChartComponent/> */}
+                <BarChartComponent/>
               </div>
             </div>
             <div className={styles.bodytwo2}>
