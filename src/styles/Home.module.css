@@ -94,7 +94,7 @@
 }
 .bodythree1 {
   width: 1200px;
-  height: 456px;
+  /* height:100; */
   border-radius: 18px;
   background-color: white;
 }
@@ -172,18 +172,42 @@
   width: 250px;
   height: 88px;
   gap: 24px;
-
 }
 .add {
   width: 250px;
   height: 32px;
   border-radius: 20px;
   gap: 4px;
-  background-color: #0166FF;
+  background-color: #0166ff;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+  border: 0;
+}
+.add:hover {
+  background-color: blue;
+}
+.input {
+  width: 250px;
+  height: 32px;
+  border-radius: 5px;
+  gap: 4px;
+  margin: 20px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20px;
+  color: black;
+  border: #a3a3a3 solid 1px;
+  background-color: #f3f4f6;
+}
+.category {
+  width: 250px;
+  height: 32px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
 }
 .record_body {
   display: flex;
@@ -227,4 +251,24 @@
   align-items: center;
   padding: 0px 24px;
   margin: 12px 0px;
+}
+
+.addRecord {
+  width: 792px;
+  height: 512px;
+  top: 256px;
+  left: 324px;
+  border-radius: 12px;
+  background-color: white;
+}
+.addRecordHeader {
+  display: flex;
+  justify-content: space-between;
+  margin:0px 20px;
+  border-bottom: 1px #D1D5DB solid;
+  height: 68px;
+  align-items: center;
+}
+.addRecordBody{
+  display:flex;
 }

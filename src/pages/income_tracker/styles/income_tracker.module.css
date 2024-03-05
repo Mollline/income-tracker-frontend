@@ -130,11 +130,4 @@
   letter-spacing: 0em;
   text-align: left;
 }
-.records {
-  width:  282px;
-  height: 1080px;
-  border-radius: 12px;
-  border: 1px black solid;
-  gap: 24px;
-  background-color: white;
-}
+

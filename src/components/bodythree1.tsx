@@ -1,13 +1,33 @@
+import axios from "axios";
 import styles from "../styles/Home.module.css";
+import { useEffect, useState } from "react";
 export const Bodythree1 = () => {
+    const [transactions, setTransactions] = useState([]);
+    const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:9999/getTransactions');
+          if (response.status === 200) {
+            const trans = response.data;
+            setTransactions(trans)
+            console.log(transactions)
+          } else {
+            console.error('Failed to fetch transactions:', response.statusText);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      useEffect(() => {
+        fetchData();
+      }, ); 
     return (
         <div className={styles.bodythree1}>
             <div className={styles.bodythree11}>
                 <div>Last Records</div>
             </div>
             <div className={styles.bodythree12}>
-                {Array.from({ length: 5 }, (_, index) => (
-                    <div className={styles.bodythree121} key={index}>
+                {transactions.map((transactions) => (
+                    <div className={styles.bodythree121} key={transactions}>
                         <div style={{ display: 'flex', gap: '20px' }}>
                             <div>
                                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,11 +36,11 @@ export const Bodythree1 = () => {
                                 </svg>
                             </div>
                             <div>
-                                <div>Lending & Renting</div>
-                                <div style={{ color: '#6B7280' }}>3 hours ago</div>
+                                <div>{transactions.category}</div>
+                                <div style={{ color: '#6B7280' }}>{transactions.createdAt}</div>
                             </div>
                         </div>
-                        <div style={{ color: '#84CC16' }}>- 1,000$</div>
+                        <div style={{ color: '#84CC16' }}>{transactions.amount} MNT</div>
                     </div>
                 ))}
 
