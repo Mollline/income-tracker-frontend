@@ -5,23 +5,22 @@ import { useEffect, useState } from "react";
 export const TodayRecords = () => {
 
     const [transactions, setTransactions] = useState([]);
-    const fetchData = async () => {
-        try {
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
             const response = await axios.get('http://localhost:9999/getTransactions');
             if (response.status === 200) {
-                const trans = response.data;
-                setTransactions(trans)
-                console.log(transactions)
+              const trans = response.data;
+              setTransactions(trans)
             } else {
-                console.error('Failed to fetch transactions:', response.statusText);
+              console.error('Failed to fetch transactions:', response.statusText);
             }
-        } catch (err) {
+          } catch (err) {
             console.log(err);
-        }
-    };
-    useEffect(() => {
+          }
+        };
         fetchData();
-    },);
+      }, []);    
     return (
         <div>
             {transactions.map((transactions) => (
