@@ -1,5 +1,6 @@
 import styles from "@/styles/Home.module.css";
 import { AddRecord } from "./addRecord";
+import { RadioGroup } from "./radioGroup";
 
 export const AddRecords = () => {
     return (
@@ -15,15 +16,10 @@ export const AddRecords = () => {
                     </div>
                     <div>
                         <div style={{ fontWeight: 'bold' }}>Types</div>
-                        <div style={{ padding: '16px' }}>
-                            <div><input type="checkbox" />All</div>
-                            <div><input type="checkbox" />Income</div>
-                            <div><input type="checkbox" />Expense</div>
-                        </div>
+                        <RadioGroup/>
                     </div>
                     <div>
                         <div style={{ fontWeight: 'bold' }}>Category</div>
-                        {Array.from({ length: 6 }, (_, index) => (
                  <div style={{ padding: '10px', display: 'flex', alignItems: 'center' }}>
                             <div className={styles.category}>
                                 <div style={{ display: 'flex', gap: '10px' }}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +34,6 @@ export const AddRecords = () => {
                                 </div>
                             </div>
                         </div>
-                ))}
                     </div>
                 </div>
             </div>

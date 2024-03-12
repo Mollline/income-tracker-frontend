@@ -4,6 +4,7 @@ import Modal from "@mui/material/Modal";
 import styles from "@/styles/Home.module.css";
 import axios from "axios";
 
+
 export const AddRecord = () => {
     const [formData, setFormData] = useState({
         userId: '123456789',
@@ -12,7 +13,7 @@ export const AddRecord = () => {
         amount: "",
         note: '',
         transactionType: '',
-        ceatedAt: 'wedawe',
+        createdAt: '',
     });
 
     const [open, setOpen] = useState(false);
@@ -65,28 +66,25 @@ export const AddRecord = () => {
                                 <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', width: '396px', height: '444px' }}>
                                     <label style={{ color: '#1F2937' }}>Transaction Type:</label>
                                     <select style={{ width: "384px", height: '40px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} name="transactionType" value={formData.transactionType} onChange={handleInputChange}>
-                                        <option value="income">Income</option>
-                                        <option value="expense">Expense</option>
+                                        <option value="income">income</option>
+                                        <option value="expense">expense</option>
                                     </select>
                                     <label style={{ color: '#1F2937' }}>Amount:</label>
                                     <input style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="number" name="amount" value={formData.amount} onChange={handleInputChange} />
                                     <label style={{ color: '#1F2937' }}>Category:</label>
                                     <select style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} name="category" value={formData.category} onChange={handleInputChange}>
-                                        <option value="food">Food</option>
-                                        <option value="shopping">Shopping</option>
-                                        <option value="bills">Bills</option>
-                                        <option value="clothing">Clothing</option>
+                                        <option value="food">food</option>
+                                        <option value="shopping">shopping</option>
+                                        <option value="bills">bills</option>
+                                        <option value="clothing">clothing</option>
                                     </select>
                                     <div style={{ display: 'flex', gap: '20px' }}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                            {/* <label style={{ color: '#1F2937' }}>Date:</label>
-                                            <input style={{ width: '168px', height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="text" name="ceatedAt" value={formData.ceatedAt} onChange={handleInputChange} /> */}
-                                        </div>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                            {/* <label style={{ color: '#1F2937' }}>Time:</label>
-                                            <input style={{ width: '168px', height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="time" name="time" value={formData.time} onChange={handleInputChange} /> */}
+                                            <label style={{ color: '#1F2937' }}>Date:</label>
+                                            <input style={{ width: '336px', height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="date" name="createdAt" value={formData.createdAt} onChange={handleInputChange} />
                                         </div>
                                     </div>
+                                    <button className={styles.add} onClick={handleCreateTransaction}>Add Record</button>
                                 </div>
                                 <div style={{ display: 'flex', gap: '5px', flexDirection: 'column', width: '396px', height: '444px' }}>
                                     <label style={{ color: '#1F2937' }}>Transaction Title:</label>
@@ -97,7 +95,6 @@ export const AddRecord = () => {
                                 </div>
                             </div>
                         </body>
-                        <button className={styles.add} onClick={handleCreateTransaction}>Add Record</button>
                     </div>
                 </div>
             </Modal>

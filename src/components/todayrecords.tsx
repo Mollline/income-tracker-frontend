@@ -12,6 +12,7 @@ export const TodayRecords = () => {
             if (response.status === 200) {
               const trans = response.data;
               setTransactions(trans)
+              console.log("awiyesfbdc",trans)
             } else {
               console.error('Failed to fetch transactions:', response.statusText);
             }

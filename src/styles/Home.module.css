@@ -272,9 +272,3 @@
 .addRecordBody{
   display:flex;
 }
-.adding{
-  width:"384px";
-  height:'48px';
-  border:'1px solid #D1D5DB';
-  background-color: '#F9FAFB';
-}
