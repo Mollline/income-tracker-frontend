@@ -3,25 +3,23 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import styles from "@/styles/Home.module.css";
 import axios from "axios";
-
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+// import { useRouter } from 'next/router';
 
 export const AddRecord = () => {
+    // const router = useRouter()
     const [formData, setFormData] = useState({
         userId: '123456789',
         category: '',
         transactionTitle: '',
-        amount: "",
+        amount: '',
         note: '',
         transactionType: '',
         createdAt: '',
     });
 
-    const [open, setOpen] = useState(false);
-
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-    const handleInputChange = (e: { target: { name: string; value: string; }; }) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -32,13 +30,19 @@ export const AddRecord = () => {
     const handleCreateTransaction = async () => {
         try {
             const response = await axios.post('http://localhost:9999/createTransaction', formData);
-            console.log(response.data);
+            const newData = response.data
+            console.log(newData);
             handleClose();
+
         } catch (error) {
             console.log(error);
-            // handleClose();
         }
     };
+
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     return (
         <div>
@@ -65,18 +69,24 @@ export const AddRecord = () => {
                             <div style={{ display: 'flex', gap: '20px', margin: "20px" }}>
                                 <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', width: '396px', height: '444px' }}>
                                     <label style={{ color: '#1F2937' }}>Transaction Type:</label>
-                                    <select style={{ width: "384px", height: '40px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} name="transactionType" value={formData.transactionType} onChange={handleInputChange}>
-                                        <option value="income">income</option>
-                                        <option value="expense">expense</option>
-                                    </select>
+                                    <ToggleButtonGroup
+                                        color="primary"
+                                        value={formData.transactionType}
+                                        exclusive
+                                        onChange={(e, value) => handleInputChange({ target: { name: 'transactionType', value } })}
+                                        aria-label="Transaction Type"
+                                    >
+                                        <ToggleButton value="income">Income</ToggleButton>
+                                        <ToggleButton value="expense">Expense</ToggleButton>
+                                    </ToggleButtonGroup>
                                     <label style={{ color: '#1F2937' }}>Amount:</label>
                                     <input style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="number" name="amount" value={formData.amount} onChange={handleInputChange} />
                                     <label style={{ color: '#1F2937' }}>Category:</label>
                                     <select style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} name="category" value={formData.category} onChange={handleInputChange}>
-                                        <option value="food">food</option>
-                                        <option value="shopping">shopping</option>
-                                        <option value="bills">bills</option>
-                                        <option value="clothing">clothing</option>
+                                        <option value="food">Food</option>
+                                        <option value="shopping">Shopping</option>
+                                        <option value="bills">Bills</option>
+                                        <option value="clothing">Clothing</option>
                                     </select>
                                     <div style={{ display: 'flex', gap: '20px' }}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

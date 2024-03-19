@@ -12,7 +12,7 @@
   width: 225.4px;
   height: 40px;
   gap: 24px;
-  /* border: 1px black solid; */
+  border: 1px black solid; 
   display: flex;
   align-items: center;
 }
@@ -21,7 +21,6 @@
   width: 163px;
   height: 40px;
   gap: 24px;
-  /* border: 1px black solid; */
   display: flex;
   align-items: center;
 }
@@ -55,7 +54,7 @@
   height: 216px;
   border-radius: 18px;
   background-color: blue;
-  /* background-image: url("del.png"); */
+
 }
 .bodyone2 {
   width: 384px;

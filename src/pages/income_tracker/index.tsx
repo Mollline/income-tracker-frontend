@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./styles/income_tracker.module.css";
 import PieChartComponent from '@/components/pie-chart';
-import {BarChartComponent} from "@/components/bar-chart";
+import { BarChartComponent } from "@/components/bar-chart";
 import { BodyOne2 } from "@/components/bodyone2";
 import { Bodythree1 } from "@/components/bodythree1";
 import { useRouter } from "next/router";
 
 export default function Home() {
   const router = useRouter()
-  const Records= ()=>{
+  const Records = () => {
     router.push('records')
   }
   return (
@@ -47,15 +47,16 @@ export default function Home() {
         </header>
         <body>
           <div className={styles.bodyone}>
-            <div className={styles.bodyone1}>
-
+            <div className={styles.bodyone1} style={{ backgroundImage: `url("dell.png")`,padding:'100px 20px '}}>
+              <div style={{ color: '#64748B'}}>Cash</div>
+              <div style={{fontSize:'24px',color:'white'}}>1000000</div>
             </div>
             <BodyOne2 />
           </div>
           <div className={styles.bodytwo}>
             <div className={styles.bodytwo1}>
               <div>
-                <BarChartComponent/>
+                <BarChartComponent />
               </div>
             </div>
             <div className={styles.bodytwo2}>
@@ -66,7 +67,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.bodythree}>
-            <Bodythree1/>
+            <Bodythree1 />
           </div>
         </body>
       </div>

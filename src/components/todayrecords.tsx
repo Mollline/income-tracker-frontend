@@ -2,33 +2,39 @@ import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const TodayRecords = () => {
-
+export const TodayRecords = ({del}) => {
     const [transactions, setTransactions] = useState([]);
+    const bgColor = (type) => {
+        if(type === 'expense') {
+            return 'red'
+        }else{
+            return 'green'
+        };
+    }
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const response = await axios.get('http://localhost:9999/getTransactions');
-            if (response.status === 200) {
-              const trans = response.data;
-              setTransactions(trans)
-              console.log("awiyesfbdc",trans)
-            } else {
-              console.error('Failed to fetch transactions:', response.statusText);
+            try {
+                const response = await axios.get('http://localhost:9999/getTransactions');
+                if (response.status === 200) {
+                    const trans = response.data;
+                    setTransactions(trans)
+                    console.log(trans)
+                } else {
+                    console.error('Failed to fetch transactions:', response.statusText);
+                }
+            } catch (err) {
+                console.log(err);
             }
-          } catch (err) {
-            console.log(err);
-          }
         };
         fetchData();
-      }, []);    
+    }, []);
     return (
         <div>
             {transactions.map((transactions) => (
                 <div className={styles.selectOne} key={transactions}>
                     <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
                         <div>
-                            <input
+                            <input style={{display: del ? "none":"flex"}}
                                 type="checkbox"
                             />
                         </div>
@@ -52,7 +58,7 @@ export const TodayRecords = () => {
                             <div style={{ color: "#6B7280" }}>{transactions.createdAt}</div>
                         </div>
                     </div>
-                    <div style={{ color: "#84CC16" }}>{transactions.amount} MNT</div>
+                    <div style={{color:`${bgColor(transactions.transactionType)}`}}>{transactions.amount} MNT</div>
                 </div>
             ))}
         </div>

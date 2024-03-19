@@ -2,7 +2,12 @@
 import styles from "@/styles/Home.module.css";
 import { AddRecords } from "@/components/addRecords";
 import { TodayRecords } from "@/components/todayrecords";
+import { useState } from "react";
 export default function Home() {
+  const [del, setDel]=useState(true)
+  // onClick={() => setDeleteFact(!deleteFact)}
+  // >
+  //   {deleteFact ? "Hide " : "Show "}
   return (
     <div>
       <div
@@ -55,18 +60,16 @@ export default function Home() {
               <div className={styles.selectAll}>
                 <div style={{ gap: "16px", display: "flex" }}>
                   <div>
-                    <input
-                      type="checkbox"
-                    />
+
                   </div>
-                  <div>select all</div>
+                  <button onClick={()=>setDel(!del)}>{del ?"edit":"done"}</button>
                 </div>
-                <div>- 52000</div>
+                <button style={{ display: del ? 'none' : 'flex' }}>clear all</button>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
                 <div>Today</div>
-                <TodayRecords/>
+                <TodayRecords del={del}/>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>

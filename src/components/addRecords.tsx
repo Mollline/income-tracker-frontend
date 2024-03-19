@@ -1,8 +1,9 @@
 import styles from "@/styles/Home.module.css";
 import { AddRecord } from "./addRecord";
-import { RadioGroup } from "./radioGroup";
+// import { RadioGroup } from "@mui/material";
 
 export const AddRecords = () => {
+    
     return (
         <div>
             <div className={styles.records}>
@@ -10,17 +11,16 @@ export const AddRecords = () => {
                     <div style={{ fontSize: "24px", fontWeight: "bold", padding: "24px 0px" }}>
                         Records
                     </div>
-                    <AddRecord/>
+                    <AddRecord />
                     <div>
                         <input className={styles.input} placeholder="Search"></input>
                     </div>
                     <div>
                         <div style={{ fontWeight: 'bold' }}>Types</div>
-                        <RadioGroup/>
                     </div>
                     <div>
                         <div style={{ fontWeight: 'bold' }}>Category</div>
-                 <div style={{ padding: '10px', display: 'flex', alignItems: 'center' }}>
+                        <div style={{ padding: '10px', display: 'flex', alignItems: 'center' }}>
                             <div className={styles.category}>
                                 <div style={{ display: 'flex', gap: '10px' }}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z" fill="#94A3B8" />
