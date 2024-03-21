@@ -2,12 +2,8 @@
 import styles from "@/styles/Home.module.css";
 import { AddRecords } from "@/components/addRecords";
 import { TodayRecords } from "@/components/todayrecords";
-import { useState } from "react";
+// import { useState } from "react";
 export default function Home() {
-  const [del, setDel]=useState(true)
-  // onClick={() => setDeleteFact(!deleteFact)}
-  // >
-  //   {deleteFact ? "Hide " : "Show "}
   return (
     <div>
       <div
@@ -62,14 +58,14 @@ export default function Home() {
                   <div>
 
                   </div>
-                  <button onClick={()=>setDel(!del)}>{del ?"edit":"done"}</button>
+                  <button >aersfedc</button>
                 </div>
-                <button style={{ display: del ? 'none' : 'flex' }}>clear all</button>
+                <button >awefd</button>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
                 <div>Today</div>
-                <TodayRecords del={del}/>
+                <TodayRecords/>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
