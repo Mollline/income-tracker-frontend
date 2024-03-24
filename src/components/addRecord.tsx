@@ -5,9 +5,10 @@ import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { trace } from "console";
 // import { useRouter } from 'next/router';
 
-export const AddRecord = () => {
+export const AddRecord = ({ transactions,setTransactions}) => {
     // const router = useRouter()
     const [formData, setFormData] = useState({
         userId: '123456789',
@@ -31,7 +32,13 @@ export const AddRecord = () => {
         try {
             const response = await axios.post('http://localhost:9999/createTransaction', formData);
             const newData = response.data
-            console.log(newData);
+            const oldData = transactions
+            // console.log("old data",oldData)
+            // console.log("new data",newData);
+            const updatedData = [...oldData,newData]
+            // console.log("updatedData",updatedData)
+            setTransactions(updatedData)
+            console.log(transactions.transactionType)
             handleClose();
 
         } catch (error) {

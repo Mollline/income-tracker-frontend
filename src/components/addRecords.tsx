@@ -2,7 +2,7 @@ import styles from "@/styles/Home.module.css";
 import { AddRecord } from "./addRecord";
 // import { RadioGroup } from "@mui/material";
 
-export const AddRecords = () => {
+export const AddRecords = ({ transactions,setTransactions}) => {
     
     return (
         <div>
@@ -11,7 +11,7 @@ export const AddRecords = () => {
                     <div style={{ fontSize: "24px", fontWeight: "bold", padding: "24px 0px" }}>
                         Records
                     </div>
-                    <AddRecord />
+                    <AddRecord  transactions={transactions} setTransactions={setTransactions}/>
                     <div>
                         <input className={styles.input} placeholder="Search"></input>
                     </div>

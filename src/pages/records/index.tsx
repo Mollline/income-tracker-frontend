@@ -2,8 +2,23 @@
 import styles from "@/styles/Home.module.css";
 import { AddRecords } from "@/components/addRecords";
 import { TodayRecords } from "@/components/todayrecords";
+import { useEffect, useState } from "react";
 // import { useState } from "react";
 export default function Home() {
+  const [transactions, setTransactions] = useState([]);
+  const [grossProfit, setGrossProfit] = useState(0);
+
+  useEffect(() => {
+      const amounts = transactions.map(transaction => transaction.amount);
+      let totalAmount = 0;
+      for (let i = 0; i < amounts.length; i++) {
+          totalAmount += amounts[i];
+      }
+      setGrossProfit(totalAmount);
+  }, [transactions]);
+  console.log("Total Amount:", grossProfit);
+  const currentTime = new Date()
+  console.log(currentTime)
   return (
     <div>
       <div
@@ -39,7 +54,7 @@ export default function Home() {
           </div>
         </header>
         <body className={styles.record_body}>
-          <AddRecords/>
+          <AddRecords transactions={transactions} setTransactions={setTransactions}/>
           <div>
             <div className={styles.date}>
               <div>
@@ -58,14 +73,14 @@ export default function Home() {
                   <div>
 
                   </div>
-                  <button >aersfedc</button>
+                  <div style={{fontSize:"20px"}}>GROSS PROFIT</div>
                 </div>
-                <button >awefd</button>
+                <div>{grossProfit}</div>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
                 <div>Today</div>
-                <TodayRecords/>
+                <TodayRecords transactions={transactions} setTransactions={setTransactions}/>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
