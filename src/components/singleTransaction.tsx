@@ -1,14 +1,7 @@
-import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import styles from "@/styles/Home.module.css";
 import axios from "axios";
-
-// const old =[{}]
-// const newrecord = {}
-
-// const updated = [...old, newrecord]
-
-// setbhjk(updated)
+import { Edit } from "./Edit";
 interface Transaction {
   id: string;
   type: string;
@@ -88,7 +81,7 @@ export const SingleTransaction: React.FC<Props> = ({
     <div className={styles.selectOne} key={transaction._id}>
       <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
         <div>
-            {iconColor(transaction.transactionType)}
+          {iconColor(transaction.transactionType)}
         </div>
         <div>
           <div>{transaction.category}</div>
@@ -100,7 +93,8 @@ export const SingleTransaction: React.FC<Props> = ({
           {transaction.amount} MNT
         </div>
         <div>
-          <CiEdit />
+          <Edit transaction={transaction}/>
+          {/* <CiEdit /> */}
         </div>
         <div>
           <MdDeleteOutline onClick={() => handleDelete()} />

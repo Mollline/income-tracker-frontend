@@ -1,8 +1,9 @@
 import styles from "@/styles/Home.module.css";
 import { AddRecord } from "./addRecord";
+import Option  from "../components/option";
 // import { RadioGroup } from "@mui/material";
 
-export const AddRecords = ({ transactions,setTransactions}) => {
+export const AddRecords = ({ transactions,setTransactions, select, setSelect}) => {
     
     return (
         <div>
@@ -17,6 +18,7 @@ export const AddRecords = ({ transactions,setTransactions}) => {
                     </div>
                     <div>
                         <div style={{ fontWeight: 'bold' }}>Types</div>
+                        <Option select={select} setSelect={setSelect}/>
                     </div>
                     <div>
                         <div style={{ fontWeight: 'bold' }}>Category</div>

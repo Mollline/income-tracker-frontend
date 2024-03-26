@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [transactions, setTransactions] = useState([]);
   const [grossProfit, setGrossProfit] = useState(0);
+  const [select, setSelect] = useState("all");
 
   useEffect(() => {
       const amounts = transactions.map(transaction => transaction.amount);
@@ -17,8 +18,15 @@ export default function Home() {
       setGrossProfit(totalAmount);
   }, [transactions]);
   console.log("Total Amount:", grossProfit);
-  const currentTime = new Date()
-  console.log(currentTime)
+  const currentTime = new Date();
+  const day = currentTime.getDate();
+  const month = (currentTime.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because January is 0
+  const year = currentTime.getFullYear();
+  
+  console.log(`${year}-${month}-${day} `);
+  
+  
+  const filteredData = select !== "all" ? transactions.filter(t=> t.transactionType === select): transactions
   return (
     <div>
       <div
@@ -54,7 +62,7 @@ export default function Home() {
           </div>
         </header>
         <body className={styles.record_body}>
-          <AddRecords transactions={transactions} setTransactions={setTransactions}/>
+          <AddRecords transactions={transactions} setTransactions={setTransactions} select={select} setSelect={setSelect}/>
           <div>
             <div className={styles.date}>
               <div>
@@ -80,12 +88,12 @@ export default function Home() {
 
               <div style={{ width: "894px", marginTop: "24px" }}>
                 <div>Today</div>
-                <TodayRecords transactions={transactions} setTransactions={setTransactions}/>
+                <TodayRecords transactions={filteredData} setTransactions={setTransactions} select={select} setSelect={setSelect}/>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
                 <div>Yesterday</div>
-                {Array.from({ length: 6 }, (_, index) => (
+                {/* {Array.from({ length: 6 }, (_, index) => (
                   <div className={styles.selectOne} key={index}>
                     <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
                       <div>
@@ -115,7 +123,7 @@ export default function Home() {
                     </div>
                     <div style={{ color: "#EAB308" }}>- 1,000$</div>
                   </div>
-                ))}
+                ))} */}
               </div>
               <div></div>
             </div>
