@@ -1,15 +1,13 @@
-import { MdDeleteOutline } from "react-icons/md";
 import styles from "@/styles/Home.module.css";
-import axios from "axios";
 import { Edit } from "./Edit";
-interface Transaction {
-  id: string;
-  type: string;
-}
-interface Props {
-  transaction: Transaction;
-  transactions: Transaction[];
-  setTransactions: React.Dispatch<React.SetStateAction<Transaction[]>>;
+import {Delete} from "./Delete";
+import { TransactionWithId } from "./addRecord";
+
+
+export type Props = {
+  transaction: TransactionWithId,
+  transactions: TransactionWithId[]
+  setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
 }
 
 export const SingleTransaction: React.FC<Props> = ({
@@ -17,6 +15,7 @@ export const SingleTransaction: React.FC<Props> = ({
   transactions,
   setTransactions,
 }) => {
+
   const bgColor = (type: string) => {
     if (type === "expense") {
       return "red";
@@ -24,6 +23,7 @@ export const SingleTransaction: React.FC<Props> = ({
       return "green";
     }
   };
+  
   const iconColor = (type: string) => {
     if (type === "expense") {
       return (
@@ -58,25 +58,7 @@ export const SingleTransaction: React.FC<Props> = ({
         </svg>
       );
     }
-  };
-  const handleDelete = async () => {
-    const id = transaction._id;
-    console.log(id);
-    try {
-      const response = await axios.delete(
-        `http://localhost:9999/deleteTransaction/${id}`
-      );
-      console.log(response);
-      console.log("w4a5ergfd", transactions);
-      console.log("ervf", transaction);
-
-      const reDelete = transactions.filter((e) => e._id !== id);
-      setTransactions(reDelete);
-      console.log(reDelete);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  }
   return (
     <div className={styles.selectOne} key={transaction._id}>
       <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
@@ -93,12 +75,11 @@ export const SingleTransaction: React.FC<Props> = ({
           {transaction.amount} MNT
         </div>
         <div>
-          <Edit transaction={transaction}/>
+          <Edit transaction={transaction} setTransactions={setTransactions} transactions={transactions}/>
           {/* <CiEdit /> */}
         </div>
         <div>
-          <MdDeleteOutline onClick={() => handleDelete()} />
-          {/* <img style={{ width: '20px' }} src="delete.png" /> */}
+          <Delete transactions={transactions} setTransactions={setTransactions} transaction={transaction}/>
         </div>
       </div>
     </div>

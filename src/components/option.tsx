@@ -4,12 +4,14 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 
-const Option = ({select, setSelect}) => {
+const Option = ({select, setSelect}:{
+    select: string;
+    setSelect: (_:string)=> void
+}) => {
 
-    const handleChange = (event) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedValue = event.target.value;
         setSelect(selectedValue)
-        console.log(select)
     };
 
     return (

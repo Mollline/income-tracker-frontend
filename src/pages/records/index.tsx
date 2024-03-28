@@ -3,9 +3,10 @@ import styles from "@/styles/Home.module.css";
 import { AddRecords } from "@/components/addRecords";
 import { TodayRecords } from "@/components/todayrecords";
 import { useEffect, useState } from "react";
+import { Transaction } from "@/components/addRecord";
 // import { useState } from "react";
 export default function Home() {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [grossProfit, setGrossProfit] = useState(0);
   const [select, setSelect] = useState("all");
 

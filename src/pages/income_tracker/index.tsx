@@ -22,7 +22,7 @@ export default function Home() {
         }}
       >
         <header className={styles.head}>
-          <div className={styles.headone}>
+          <div className={styles.headone} style={{border:'0'}}>
             <div>
               <svg
                 width="29"
@@ -42,7 +42,9 @@ export default function Home() {
           </div>
           <div className={styles.headtwo}>
             <div className={styles.headtwo1} onClick={Records}>+ Record</div>
-            <div className={styles.headtwo2}></div>
+            <div className={styles.headtwo2}>
+              <div className={styles.headtwo3}></div>
+            </div>
           </div>
         </header>
         <body>

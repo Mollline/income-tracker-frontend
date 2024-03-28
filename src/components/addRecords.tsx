@@ -1,10 +1,16 @@
 import styles from "@/styles/Home.module.css";
-import { AddRecord } from "./addRecord";
+import { AddRecord, Transaction } from "./addRecord";
 import Option  from "../components/option";
+// import transactionSchema from "../../transactionSchema";
 // import { RadioGroup } from "@mui/material";
 
-export const AddRecords = ({ transactions,setTransactions, select, setSelect}) => {
-    
+export type RecordProps = {
+    transactions: Transaction[]
+    setTransactions: React.Dispatch<React.SetStateAction<Transaction[]>>;
+    select: string;
+    setSelect: (_:string)=> void
+}
+export const AddRecords = ({ transactions,setTransactions, select, setSelect}:RecordProps) => {
     return (
         <div>
             <div className={styles.records}>

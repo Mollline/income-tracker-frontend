@@ -12,13 +12,12 @@
   width: 225.4px;
   height: 40px;
   gap: 24px;
-  border: 1px black solid; 
   display: flex;
   align-items: center;
 }
 
 .headtwo {
-  width: 163px;
+  width: 250px;
   height: 40px;
   gap: 24px;
   display: flex;
@@ -37,9 +36,15 @@
 }
 
 .headtwo2 {
+  width: 127px;
+  height: 32px;
+  background-color: #0166ff;
+  border-radius: 20px;
+}
+.headtwo3 {
   width: 40px;
   height: 40px;
-  background-color: #0166ff;
+  background-color:blue;
   border-radius: 20px;
 }
 

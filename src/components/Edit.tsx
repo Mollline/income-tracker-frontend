@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import styles from "@/styles/Home.module.css";
@@ -6,8 +6,15 @@ import axios from "axios";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { CiEdit } from "react-icons/ci";
+import { TransactionWithId } from "./addRecord";
 
-export const Edit = ({ transactions, setTransactions, transaction}) => {
+export type EditProps = {
+    transaction: TransactionWithId,
+    transactions: TransactionWithId[]
+    setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
+}
+
+export const Edit = ({ transactions, setTransactions, transaction}: EditProps) => {
     // const router = useRouter()
     const id= transaction._id
     const [formData, setFormData] = useState({
@@ -19,7 +26,7 @@ export const Edit = ({ transactions, setTransactions, transaction}) => {
         createdAt: transaction.createdAt,
     });
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -30,24 +37,23 @@ export const Edit = ({ transactions, setTransactions, transaction}) => {
     const handleCreateTransaction = async () => {
         try {
             const response = await axios.post(`http://localhost:9999/editTransaction/${id}`, formData);
-            const newData = response.data;
-            const oldData = transactions;
             handleClose();
-            console.log(newData);
+            const newData = response.data;
+            const oldData = [...transactions]; 
             const updatedId = newData._id;
             const updatedData = oldData.map((e) => {
                 if (e._id === updatedId) {
-                    return newData;
+                    return newData; // Replace the transaction with updated data
                 }
                 return e;
             });
             console.log(updatedData);
             setTransactions(updatedData);
-            console.log(transactions.transactionType);
         } catch (error) {
             console.log(error);
         }
     };
+    
     
 
     const [open, setOpen] = useState(false);
@@ -85,7 +91,10 @@ export const Edit = ({ transactions, setTransactions, transaction}) => {
                                         color="primary"
                                         value={formData.transactionType}
                                         exclusive
-                                        onChange={(e, value) => handleInputChange({ target: { name: 'transactionType', value } })}
+                                        onChange={(e, value) =>  setFormData({
+                                            ...formData,
+                                            transactionType : value
+                                        })}
                                         aria-label="Transaction Type"
                                     >
                                         <ToggleButton value="income">Income</ToggleButton>

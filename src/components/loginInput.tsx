@@ -35,6 +35,7 @@ export const LoginInput: React.FC<LoginInputProps> = () => {
       alert("User found");
       router.push("/");
       localStorage.setItem("email", String(true));
+      localStorage.setItem("_id",String(true))
     } catch (err) {
       // Handle error appropriately
       alert("User not found");
