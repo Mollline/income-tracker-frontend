@@ -10,8 +10,8 @@ export default function Home() {
   const router = useRouter();
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null as Country | null);
-
-  const currency = ()=>{
+  console.log(selectedCountry)
+  const currency = () => {
     router.push("/Balance")
   }
   interface Value {
@@ -24,12 +24,12 @@ export default function Home() {
     value: string;
     label: string;
   };
-  
+
   useEffect(() => {
     const fetchCountries = async () => {
       try {
         const response = await axios.get("https://restcountries.com/v3.1/all");
-        const countriesData = response.data.map((country:Value) => ({
+        const countriesData = response.data.map((country: Value) => ({
           value: country.cca3,
           label: country.name.common,
         }));
@@ -49,7 +49,7 @@ export default function Home() {
         height: "100vh",
         backgroundColor: "white",
         display: "flex",
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: "center",
       }}
     >
@@ -209,8 +209,8 @@ export default function Home() {
               fontWeight: "400",
               fontSize: "12px",
               lineHeight: "16px",
-              marginTop:'-20px',
-              color:'#475569'
+              marginTop: '-20px',
+              color: '#475569'
             }}
           >
             Your base currency should be the one you use most often. All

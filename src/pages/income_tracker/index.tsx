@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles/income_tracker.module.css";
 import PieChartComponent from '@/components/pie-chart';
 import { BarChartComponent } from "@/components/bar-chart";
 import { BodyOne2 } from "@/components/bodyone2";
 import { Bodythree1 } from "@/components/bodythree1";
 import { useRouter } from "next/router";
-
+import Profile from "@/components/profile";
 export default function Home() {
+  const [transactions, setTransactions] = useState([]);
+  const [imageUrl, setImageUrl] = useState("");
+  console.log("aerfsdc",imageUrl)
   const router = useRouter()
   const Records = () => {
     router.push('records')
@@ -22,7 +25,7 @@ export default function Home() {
         }}
       >
         <header className={styles.head}>
-          <div className={styles.headone} style={{border:'0'}}>
+          <div className={styles.headone} style={{ border: '0' }}>
             <div>
               <svg
                 width="29"
@@ -43,15 +46,23 @@ export default function Home() {
           <div className={styles.headtwo}>
             <div className={styles.headtwo1} onClick={Records}>+ Record</div>
             <div className={styles.headtwo2}>
-              <div className={styles.headtwo3}></div>
+              <Profile imageUrl={imageUrl} setImageUrl={setImageUrl}/>
+              <div style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "20px",
+                marginLeft: "36px",
+                backgroundImage: "url(`${imageUrl}`)"
+              }}></div>
+
             </div>
           </div>
         </header>
         <body>
           <div className={styles.bodyone}>
-            <div className={styles.bodyone1} style={{ backgroundImage: `url("dell.png")`,padding:'100px 20px '}}>
-              <div style={{ color: '#64748B'}}>Cash</div>
-              <div style={{fontSize:'24px',color:'white'}}>1000000</div>
+            <div className={styles.bodyone1} style={{ backgroundImage: `url("dell.png")`, padding: '100px 20px ' }}>
+              <div style={{ color: '#64748B' }}>Cash</div>
+              <div style={{ fontSize: '24px', color: 'white' }}>1000000</div>
             </div>
             <BodyOne2 />
           </div>
@@ -63,13 +74,13 @@ export default function Home() {
             </div>
             <div className={styles.bodytwo2}>
               <div>
-                <PieChartComponent />
+                <PieChartComponent transactions={transactions} setTransactions={setTransactions} />
               </div>
 
             </div>
           </div>
           <div className={styles.bodythree}>
-            <Bodythree1 />
+            <Bodythree1 transactions={transactions} setTransactions={setTransactions} />
           </div>
         </body>
       </div>

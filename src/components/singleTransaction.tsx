@@ -70,6 +70,10 @@ export const SingleTransaction: React.FC<Props> = ({
           <div style={{ color: "#6B7280" }}>{transaction.createdAt}</div>
         </div>
       </div>
+      <div style={{width:"250px",overflowY:"scroll"}}>
+              <div style={{fontSize:"15px" }}>{transaction.transactionTitle}</div>
+              <div style={{color:"#6B7280"}}>{transaction.note}</div>
+            </div>
       <div style={{ display: "flex", gap: "20px" }}>
         <div style={{ color: `${bgColor(transaction.transactionType)}` }}>
           {transaction.amount} MNT

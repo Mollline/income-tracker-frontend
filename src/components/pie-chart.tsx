@@ -3,10 +3,11 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+// const [data, setData] = useState([]);
 
-const categories = ["Bills", "Food", "Shopping", "Insurance", "Clothing"];
-const expenses = [300, 50, 100, 200, 150];
-const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`, `#F2901C`];
+const categories = ["Food", "Shopping", "Bills", "Clothing"];
+const expenses = [300, 50, 100, 200, ];
+const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`];
 
 const sum = expenses.reduce((a, b) => a + b, 0);
 
@@ -27,7 +28,8 @@ const options = {
         },
     },
 };
-export const PieChartComponent = () => {
+export const PieChartComponent = ({transactions, setTransactions}) => {
+    console.log("awefsdcafew")
     return (
         Dashboard(),
         Labels()

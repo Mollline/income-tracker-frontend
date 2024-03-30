@@ -40,12 +40,16 @@
   height: 32px;
   background-color: #0166ff;
   border-radius: 20px;
+  display: flex;
+  align-items: center;
 }
 .headtwo3 {
   width: 40px;
   height: 40px;
   background-color:blue;
   border-radius: 20px;
+  margin-left: 36px;
+  background-image:url("/profile.png") ;
 }
 
 .bodyone {
