@@ -1,6 +1,8 @@
 import axios from "axios";
 import styles from "../styles/Home.module.css";
 import { useEffect,  } from "react";
+
+
 export const Bodythree1 = ({transactions, setTransactions}) => {
   const bgColor = (type: string) => {
     if (type === "expense") {
@@ -67,7 +69,7 @@ export const Bodythree1 = ({transactions, setTransactions}) => {
         <div>Last Records</div>
       </div>
       <div className={styles.bodythree12}>
-        {transactions.slice(-5).map((transactions) => (
+        {transactions.slice(-5).reverse().map((transactions) => (
           <div className={styles.bodythree121} key={transactions}>
             <div style={{ display: 'flex', gap: '20px' }}>
               <div>
@@ -82,7 +84,7 @@ export const Bodythree1 = ({transactions, setTransactions}) => {
               <div style={{fontSize:"15px" }}>{transactions.transactionTitle}</div>
               <div style={{color:"#6B7280"}}>{transactions.note}</div>
             </div>
-            <div style={{ color: `${bgColor(transactions.transactionType)}` }}>{transactions.amount} MNT</div>
+            <div style={{ color: `${bgColor(transactions.transactionType)}`,width:"100px" }}>{transactions.amount} MNT</div>
           </div>
         ))}
 

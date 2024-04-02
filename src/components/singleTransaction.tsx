@@ -10,11 +10,11 @@ export type Props = {
   setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
 }
 
-export const SingleTransaction: React.FC<Props> = ({
+export const SingleTransaction = ({
   transaction,
   transactions,
   setTransactions,
-}) => {
+}:Props) => {
 
   const bgColor = (type: string) => {
     if (type === "expense") {
@@ -75,7 +75,7 @@ export const SingleTransaction: React.FC<Props> = ({
               <div style={{color:"#6B7280"}}>{transaction.note}</div>
             </div>
       <div style={{ display: "flex", gap: "20px" }}>
-        <div style={{ color: `${bgColor(transaction.transactionType)}` }}>
+        <div style={{ color: `${bgColor(transaction.transactionType)}`,width:"100px"}}>
           {transaction.amount} MNT
         </div>
         <div>

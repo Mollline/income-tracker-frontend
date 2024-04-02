@@ -23,8 +23,8 @@ export interface TransactionWithId extends Transaction {
 }
 
 interface AddRecordProps {
-    transactions: Transaction[];
-    setTransactions: React.Dispatch<React.SetStateAction<Transaction[]>>;
+    transactions: TransactionWithId[];
+    setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
 }
 
 export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransactions }) => {
@@ -74,7 +74,7 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
 
     return (
         <div>
-            <Button className={styles.add} onClick={handleOpen}>
+            <Button className={styles.add} onClick={handleOpen} style={{zIndex:"0"}}>
                 + Add Record
             </Button>
             <Modal
@@ -115,11 +115,11 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
                                     <input style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="number" name="amount" value={formData.amount} onChange={handleInputChange} />
                                     <label style={{ color: '#1F2937' }}>Category:</label>
                                     <select style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} name="category" value={formData.category} onChange={handleInputChange}>
-                                        <option value="shopping"></option>
-                                        <option value="food">Food</option>
-                                        <option value="shopping">Shopping</option>
-                                        <option value="bills">Bills</option>
-                                        <option value="clothing">Clothing</option>
+                                        <option value=""></option>
+                                        <option value="food">food</option>
+                                        <option value="shopping">shopping</option>
+                                        <option value="bills">bills</option>
+                                        <option value="clothing">clothing</option>
                                     </select>
                                     <div style={{ display: 'flex', gap: '20px' }}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -131,10 +131,10 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
                                 </div>
                                 <div style={{ display: 'flex', gap: '5px', flexDirection: 'column', width: '396px', height: '444px' }}>
                                     <label style={{ color: '#1F2937' }}>Transaction Title:</label>
-                                    <input style={{ width: "344px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="text" name="transactionTitle" value={formData.transactionTitle} onChange={handleInputChange} />
+                                    <input style={{ width: "344px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }}maxLength={20} type="text" name="transactionTitle" value={formData.transactionTitle} onChange={handleInputChange} />
 
                                     <label style={{ color: '#1F2937' }}>Note:</label>
-                                    <input style={{ width: "344px", height: '280px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="text" name="note" value={formData.note} onChange={handleInputChange} />
+                                    <input style={{ width: "344px", height: '280px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }}maxLength={70}type="text" name="note" value={formData.note} onChange={handleInputChange} />
                                 </div>
                             </div>
                         </body>

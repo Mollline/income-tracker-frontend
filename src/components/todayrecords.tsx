@@ -1,15 +1,14 @@
 import axios from "axios";
-import { useEffect,  } from "react";
+import { useEffect, } from "react";
 import { SingleTransaction } from "./singleTransaction";
 import { TransactionWithId } from "./addRecord";
-import { RecordProps } from "./addRecords";
 
 export type TransactionProps = {
     transactions: TransactionWithId[]
     setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
 }
 
-export const TodayRecords = ({transactions, setTransactions}:RecordProps) => {
+export const TodayRecords = ({ transactions, setTransactions }: TransactionProps) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -26,13 +25,14 @@ export const TodayRecords = ({transactions, setTransactions}:RecordProps) => {
             }
         };
         fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <div>
-            {transactions.map((transaction) => (
-               <SingleTransaction key={''} transaction={transaction} transactions={transactions} setTransactions={setTransactions}/>
+            {transactions.slice().reverse().map((transaction) => (
+                <SingleTransaction key={''} transaction={transaction} transactions={transactions} setTransactions={setTransactions} />
             ))}
+
         </div>
     )
 }
