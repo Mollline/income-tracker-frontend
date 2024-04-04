@@ -29,8 +29,8 @@ export const TodayRecords = ({ transactions, setTransactions }: TransactionProps
     }, []);
     return (
         <div>
-            {transactions.slice().reverse().map((transaction) => (
-                <SingleTransaction key={''} transaction={transaction} transactions={transactions} setTransactions={setTransactions} />
+            {transactions.slice().reverse().map((transaction, index) => (
+                <SingleTransaction key={index} transaction={transaction} transactions={transactions} setTransactions={setTransactions} />
             ))}
 
         </div>

@@ -52,10 +52,10 @@ export default function Home() {
           <div className={styles.headtwo}>
             <div className={styles.headtwo1} onClick={Records}>+ Record</div>
             <div className={styles.headtwo2}>
-              <Profile imageUrl={imageUrl} setImageUrl={setImageUrl} />
+              {/* <Profile imageUrl={imageUrl} setImageUrl={setImageUrl}/> */}
               <div style={{
                 width: "40px",
-                height: "40px",
+                height: "40px", 
                 borderRadius: "20px",
                 marginLeft: "36px",
                 backgroundImage: "url(`${imageUrl}`)"

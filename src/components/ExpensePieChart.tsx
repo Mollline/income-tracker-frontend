@@ -1,12 +1,15 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { ChartProps } from "./bar-chart";
+import { TransactionWithId } from "./addRecord";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 // const [data, setData] = useState([]);
-
-export const ExpensePieChart = ({ transactions,setExpense }: ChartProps) => {
+type ChartProps = {
+    transactions: TransactionWithId[]
+    setExpense:Dispatch<SetStateAction<number>>
+}
+export const ExpensePieChart = ({ transactions, setExpense }: ChartProps) => {
     console.log(transactions)
     const food = transactions.reduce((total, transaction) => {
         if (transaction.transactionType === 'expense' && transaction.category === "food") {
@@ -40,8 +43,11 @@ export const ExpensePieChart = ({ transactions,setExpense }: ChartProps) => {
     const categories = ["Food", "Shopping", "Bills", "Clothing"];
     const expenses = [`${food}`, `${shopping}`, `${bills}`, `${clothing}`,];
     const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`];
-
-    const sum = expenses.reduce((a, b) => a - b, 0);
+    interface expense {
+        a:number;
+        b:number
+      }
+    const sum = expenses.reduce((a, b):expense => a - b, 0);
     setExpense(sum)
     const dataSet = {
         labels: categories,

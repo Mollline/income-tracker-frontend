@@ -1,11 +1,14 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { ChartProps } from "./bar-chart";
+import { TransactionWithId } from "./addRecord";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 // const [data, setData] = useState([]);
-
+ type ChartProps = {
+    transactions: TransactionWithId[]
+    setIncome:Dispatch<SetStateAction<number>>
+}
 export const IncomePieChart = ({ transactions,setIncome}: ChartProps) => {
     console.log(transactions)
     const food = transactions.reduce((total, transaction) => {

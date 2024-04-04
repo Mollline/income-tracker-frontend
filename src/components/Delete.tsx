@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { MdDeleteOutline } from "react-icons/md";
 import axios from 'axios';
+import { TransactionWithId } from './addRecord';
 
 const style = {
     position: 'absolute',
@@ -17,8 +18,12 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-
-export const Delete = ({ transaction, transactions, setTransactions }) => {
+interface deleteRecordProps {
+    transactions: TransactionWithId[];
+    setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
+    transaction: TransactionWithId;
+  }
+export const Delete: React.FC<deleteRecordProps>  = ({ transaction, transactions, setTransactions }) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

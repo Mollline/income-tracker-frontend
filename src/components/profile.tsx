@@ -1,5 +1,5 @@
 // components/Profile.js
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -16,26 +16,30 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+interface imageProps {
+  imageUrl:string;
+  setImageUrl:Dispatch<SetStateAction<string>>
 
-const Profile = ({ imageUrl, setImageUrl }) => {
+}
+const Profile: React.FC<imageProps> = ({ imageUrl, setImageUrl }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleUpload = async (e) => {
+  const handleUpload = async (file: File) => {
     const formData = new FormData();
-    formData.append('file', e.target.files[0]);
-
+    formData.append('file', file);
+  
     try {
       const response = await fetch('/api/uploadProfilePicture', {
         method: 'POST',
         body: formData,
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-        setImageUrl(data.imageUrl); // Assuming the response contains the image URL
+        setImageUrl(data.imageUrl)
       } else {
         console.error('Failed to upload image:', response.statusText);
       }
@@ -43,6 +47,7 @@ const Profile = ({ imageUrl, setImageUrl }) => {
       console.log(error);
     }
   };
+  
 
   return (
     <div>
@@ -62,7 +67,7 @@ const Profile = ({ imageUrl, setImageUrl }) => {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <div>
               <input type="file" accept="image/*" onChange={handleUpload} />
-              {imageUrl && <img src={imageUrl} alt="Profile Picture" />}
+              <img style={{border:"2px black solid"}} src={`${imageUrl}`} alt="Profile Picture" />
             </div>
           </Typography>
         </Box>

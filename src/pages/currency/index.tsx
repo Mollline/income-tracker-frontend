@@ -134,7 +134,7 @@ export default function Home() {
             left: "528px",
             gap: "32px",
             display: "flex",
-            justifyContent: "center  ",
+            justifyContent: "center",
             flexDirection: "column",
           }}
         >

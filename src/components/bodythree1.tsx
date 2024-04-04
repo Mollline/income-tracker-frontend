@@ -1,9 +1,13 @@
 import axios from "axios";
 import styles from "../styles/Home.module.css";
 import { useEffect,  } from "react";
+import { TransactionWithId } from "./addRecord";
 
-
-export const Bodythree1 = ({transactions, setTransactions}) => {
+interface AddRecordProps {
+  transactions: TransactionWithId[];
+  setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
+}
+export const Bodythree1: React.FC<AddRecordProps> = ({transactions, setTransactions}) => {
   const bgColor = (type: string) => {
     if (type === "expense") {
       return "red";
@@ -69,8 +73,8 @@ export const Bodythree1 = ({transactions, setTransactions}) => {
         <div>Last Records</div>
       </div>
       <div className={styles.bodythree12}>
-        {transactions.slice(-5).reverse().map((transactions) => (
-          <div className={styles.bodythree121} key={transactions}>
+        {transactions.slice(-5).reverse().map((transactions, index) => (
+          <div className={styles.bodythree121} key={index}>
             <div style={{ display: 'flex', gap: '20px' }}>
               <div>
                 {iconColor(transactions.transactionType)}

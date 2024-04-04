@@ -64,6 +64,9 @@ const profitColor = Profit < 0 ? "red" : "green";
             <div onClick={()=>router.push('income_tracker')}>Dashboard</div>
             <div>Records</div>
           </div>
+          <div className={styles.headone}>
+            <div onClick={()=>router.push("note")}>Note</div>
+          </div>
         </header>
         <body className={styles.record_body}>
           <AddRecords transactions={transactions} setTransactions={setTransactions} select={select} setSelect={setSelect}/>
@@ -92,7 +95,7 @@ const profitColor = Profit < 0 ? "red" : "green";
 
               <div style={{ width: "894px", marginTop: "24px" }}>
                 <div>Today</div>
-                <TodayRecords transactions={filteredData} setTransactions={setTransactions} select={select} setSelect={setSelect}/>
+                <TodayRecords transactions={filteredData} setTransactions={setTransactions}/>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
