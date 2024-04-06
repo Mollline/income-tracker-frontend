@@ -117,6 +117,7 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
                                     <select style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} name="category" value={formData.category} onChange={handleInputChange}>
                                         <option value=""></option>
                                         <option value="food">food</option>
+                                        <option value="wage">wage</option>
                                         <option value="shopping">shopping</option>
                                         <option value="bills">bills</option>
                                         <option value="clothing">clothing</option>

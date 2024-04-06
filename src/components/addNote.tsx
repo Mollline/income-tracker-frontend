@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import styles from "@/styles/Home.module.css";
 import axios from "axios";
+interface NoteData {
+    noteTitle: string;
+    note: string;
+    createdAt: string;
+}
+interface Note {
+    _id: string;
+    noteTitle: string;
+    note: string;
+    createdAt: string;
+}
+interface AddNoteProps {
+    notes: NoteData[];
+    setNotes: Dispatch<SetStateAction<Note[]>>
+}
 
-
-
-
-export const AddNote = ({ notes, setNotes }) => {
+export const AddNote: React.FC<AddNoteProps> = ({ notes, setNotes }) => {
     // const user_id = localStorage.getItem("_id");
     // console.log(user_id)
     const [formData, setFormData] = useState({
@@ -51,12 +63,12 @@ export const AddNote = ({ notes, setNotes }) => {
         });
         setOpen(true);
     };
-    
+
     const handleClose = () => setOpen(false);
-    
+
     return (
         <div>
-            <Button className={styles.add} onClick={handleOpen} style={{ zIndex: "0" }}>
+            <Button className={styles.add} onClick={handleOpen} style={{ zIndex: "0", width: "100%" }}>
                 + Add Note
             </Button>
             <Modal

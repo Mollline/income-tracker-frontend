@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 export default function Home() {
   const [transactions, setTransactions] = useState<TransactionWithId[]>([]);
   const [select, setSelect] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const router = useRouter()
 
   const sumIncome = transactions.reduce((total, transaction) => {
@@ -26,15 +27,10 @@ const sumExpense = transactions.reduce((total, transaction) => {
 }, 0);
 const Profit = sumIncome - sumExpense;
 const profitColor = Profit < 0 ? "red" : "green"; 
-  const currentTime = new Date();
-  const day = currentTime.getDate();
-  const month = (currentTime.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because January is 0
-  const year = currentTime.getFullYear();
-  
-  console.log(`${year}-${month}-${day} `);
-  
-  
+const gross = Profit < 0 ? "GROSS LOSS" : "GROSS PROFIT"; 
   const filteredData = select !== "all" ? transactions.filter(t=> t.transactionType === select): transactions
+    
+  const filteredByCategoryData = selectedCategory !== "all" ? filteredData.filter(t=> t.category === selectedCategory): filteredData
   return (
     <div>
       <div
@@ -63,13 +59,13 @@ const profitColor = Profit < 0 ? "red" : "green";
             </div>
             <div onClick={()=>router.push('income_tracker')}>Dashboard</div>
             <div>Records</div>
+            <div onClick={()=>router.push("note")}>Notes</div>
           </div>
           <div className={styles.headone}>
-            <div onClick={()=>router.push("note")}>Note</div>
           </div>
         </header>
         <body className={styles.record_body}>
-          <AddRecords transactions={transactions} setTransactions={setTransactions} select={select} setSelect={setSelect}/>
+          <AddRecords transactions={filteredByCategoryData} setTransactions={setTransactions} select={select} setSelect={setSelect} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
           <div>
             <div className={styles.date}>
               <div>
@@ -88,18 +84,16 @@ const profitColor = Profit < 0 ? "red" : "green";
                   <div>
 
                   </div>
-                  <div style={{fontSize:"20px"}}>GROSS PROFIT</div>
+                  <div style={{fontSize:"20px"}}>{gross}</div>
                 </div>
                 <div style={{color:`${profitColor}`}}>{Profit}</div>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
-                <div>Today</div>
-                <TodayRecords transactions={filteredData} setTransactions={setTransactions}/>
+                <TodayRecords transactions={filteredByCategoryData} setTransactions={setTransactions}/>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
-                <div>Yesterday</div>
               </div>
               <div></div>
             </div>

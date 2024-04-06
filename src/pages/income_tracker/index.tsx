@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles/income_tracker.module.css";
 import IncomePieChart from '@/components/IncomePieChart';
 import ExpensePieChart from "@/components/ExpensePieChart";
@@ -6,7 +6,7 @@ import ExpensePieChart from "@/components/ExpensePieChart";
 import { BodyOne2 } from "@/components/bodyone2";
 import { Bodythree1 } from "@/components/bodythree1";
 import { useRouter } from "next/router";
-import Profile from "@/components/profile";
+// import Profile from "@/components/profile";
 import { TransactionWithId } from "@/components/addRecord";
 
 
@@ -20,6 +20,13 @@ export default function Home() {
   const Records = () => {
     router.push('records')
   }
+  useEffect(() => {
+    // const isCurrencyComfirmed = () => {
+    //   const user = localStorage.getItem("email");
+    //   if (!user) [router.push("/login")];
+    // };
+    // isCurrencyComfirmed();
+  });
   return (
     <div >
       <div
@@ -48,6 +55,7 @@ export default function Home() {
             </div>
             <div>Dashboard</div>
             <div onClick={()=>router.push('records')}>Records</div>
+            <div onClick={()=>router.push('note')}>Notes</div>
           </div>
           <div className={styles.headtwo}>
             <div className={styles.headtwo1} onClick={Records}>+ Record</div>

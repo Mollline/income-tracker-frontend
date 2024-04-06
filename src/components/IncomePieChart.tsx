@@ -44,7 +44,7 @@ export const IncomePieChart = ({ transactions,setIncome}: ChartProps) => {
     const incomes = [`${food}`, `${shopping}`, `${bills}`, `${clothing}`,];
     const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`];
 
-    const sum = incomes.reduce((a, b) => a - b, 0);
+    const sum = incomes.reduce((a, b) => Number(a) - Number(b), 0);
     const sumIncome = sum*-1
     setIncome(sumIncome)
     const dataSet = {
@@ -110,7 +110,7 @@ export const IncomePieChart = ({ transactions,setIncome}: ChartProps) => {
     )
 }
 
-const Labels = ({ categories, colors, incomes, sum }: { categories: string[], colors: string[], incomes: number[], sum: number }) => {
+const Labels = ({ categories, colors, incomes, sum }: { categories: string[], colors: string[], incomes: string[], sum: number }) => {
     return (
         <div>
             {categories.map((category, index) => (
@@ -129,23 +129,11 @@ const Labels = ({ categories, colors, incomes, sum }: { categories: string[], co
                         <p style={{ marginRight: "10px" }}>{category}</p>
                     </div>
                     <div style={{ width: "100px", color: "#84CC16" }}>{incomes[index]} MNT</div>
-                    <div style={{ width: "100px" }}>{Math.round((incomes[index] * -100) / sum)}%</div>
+                    <div style={{ width: "100px" }}>{Math.round((Number(incomes[index]) * -100) / sum)}%</div>
                 </div>
             ))}
         </div>
     );
 };
 export default IncomePieChart;
-// export const IncomePieChart = ({ transactions, setIncome }: ChartProps) => {
-//     console.log(transactions);
 
-//     const categoryTotals = transactions.reduce((totals, transaction) => {
-//         if (transaction.transactionType === 'income') {
-//             totals[transaction.category] = (totals[transaction.category] || 0) + transaction.amount;
-//         }
-//         return totals;
-//     }, {});
-
-//     const categories = Object.keys(categoryTotals);
-//     const incomes = Object.values(categoryTotals).map(amount => `${amount}`);
-//     const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`];

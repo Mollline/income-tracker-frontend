@@ -43,10 +43,6 @@ export const ExpensePieChart = ({ transactions, setExpense }: ChartProps) => {
     const categories = ["Food", "Shopping", "Bills", "Clothing"];
     const expenses = [`${food}`, `${shopping}`, `${bills}`, `${clothing}`,];
     const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`];
-    interface expense {
-        a:number;
-        b:number
-      }
     const sum = expenses.reduce((a, b) => Number(a) - Number(b), 0);
     setExpense(sum)
     const dataSet = {
