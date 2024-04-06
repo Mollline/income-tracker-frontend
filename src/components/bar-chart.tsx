@@ -1,48 +1,89 @@
-// components/BarChartComponent.tsx
 import React from "react";
-import dynamic from 'next/dynamic';
+import {
+    ChartData,
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { TransactionWithId } from './addRecord';
 
-const Labels = dynamic(() => import('./Labels'), { ssr: false });
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
-const categories = ["Bills", "Food", "Shopping", "Insurance", "Clothing"];
-const expenses = [300, 50, 100, 200, 150];
-const colors = ["#1C64F2", "#E74694", "#FDBA8C", "#16BDCA", "#F2901C"];
-
-const sum = expenses.reduce((a, b) => a + b, 0);
-
-const dataSet = {
-  labels: categories,
-  datasets: [
-    {
-      label: "Expenses",
-      data: expenses,
-      backgroundColor: colors,
-    },
-  ],
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const data = {
+    labels,
+    datasets: [
+        {
+            label: "Income",
+            data: labels.map(() => {
+                return Math.random() * 300;
+            }),
+            backgroundColor: "#84CC16",
+            borderRadius: "30",
+        },
+        {
+            label: "Expense",
+            data: labels.map(() => {
+                return Math.random() * 300;
+            }),
+            backgroundColor: "#F97316",
+            borderRadius: "30",
+        },
+    ],
 };
 
-const options = {
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-};
+export type ChartProps = {
+    transactions: TransactionWithId[]
+    setIncome:number
+}
 
-const BarChartComponent: React.FC = () => {
-  return (
-    <div style={{ width: "588px", borderRadius: "12px", border: "1px solid #E5E5E5" }}>
-      <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", padding: "0 20px", height: "56px" }}>
-        <p>Total: {sum}$</p>
-      </div>
-      <div style={{ width: "100%", backgroundColor: "#F5F5F5", height: "1px", margin: "10px 0" }} />
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-        <Bar data={dataSet} options={options} style={{ maxHeight: "170px", maxWidth: "170px" }} />
-        <Labels categories={categories} expenses={expenses} colors={colors} sum={sum} />
-      </div>
-    </div>
-  );
-};
 
-export default BarChartComponent;
+export const BarChartComponent = ({transactions}:ChartProps) => {
+    console.log("q34wafe",transactions)
+    const sumIncome = transactions.reduce((total, transaction) => {
+        if (transaction.transactionType === "income") {
+            return total + transaction.amount;
+        } else {
+            return total;
+        }
+    }, 0);
+    const sumExpense = transactions.reduce((total, transaction) => {
+        if (transaction.transactionType === "expense") {
+            return total + transaction.amount;
+        } else {
+            return total;
+        }
+    }, 0);
+    console.log("sumIncome",sumIncome)
+    console.log("sumExpense",sumExpense)
+    return (
+        <div>
+            <div style={{width:'588px',height:'56px',fontSize:'16px',fontWeight:'bold',display:'flex',alignItems:'center',padding:'0px 24px',borderBottom:'1px solid #E2E8F0'}}>
+                Income - Expense
+            </div>
+            <div style={{width: "588px",height:"226px",display:'flex',alignItems:"center",justifyContent:'center'}}>
+                <Bar style={{ height: '162px', width: '542px' }}
+                    data={data as ChartData<"bar">}
+                    options={{
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                        },
+                    }}
+                /></div>
+        </div>
+    );
+}

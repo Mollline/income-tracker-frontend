@@ -118,7 +118,7 @@ export const SignupInput = () => {
           cursor: isFormIncomplete ? 'not-allowed' : 'pointer',
         }}
         onClick={createUser}
-        disabled={isFormIncomplete}
+        // disabled={isFormIncomplete}
       >
         <div
           style={{
