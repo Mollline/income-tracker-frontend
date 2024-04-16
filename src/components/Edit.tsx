@@ -39,10 +39,10 @@ export const Edit = ({ transactions, setTransactions, transaction }: EditProps) 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const handleCreateTransaction = async () => {
+    const handleEditTransaction = async () => {
         try {
             // Update formData with the latest changes
-            const response = await axios.post(`http://localhost:9999/editTransaction/${id}`, formData);
+            const response = await axios.post(`https://income-tracker-backend-e8yv.onrender.com/editTransaction/${id}`, formData);
             handleClose();
             const newData = response.data;
             const newDataId = newData._id;
@@ -114,7 +114,7 @@ export const Edit = ({ transactions, setTransactions, transaction }: EditProps) 
                                             <input style={{ width: '336px', height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="date" name="createdAt" value={formData.createdAt} onChange={handleInputChange} />
                                         </div>
                                     </div>
-                                    <button className={styles.add} onClick={handleCreateTransaction}>Edit Record</button>
+                                    <button className={styles.add} onClick={handleEditTransaction}>Edit Record</button>
                                 </div>
                                 <div style={{ display: 'flex', gap: '5px', flexDirection: 'column', width: '396px', height: '444px' }}>
                                     <label style={{ color: '#1F2937' }}>Transaction Title:</label>

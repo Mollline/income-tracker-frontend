@@ -38,7 +38,7 @@ export const AddNote: React.FC<AddNoteProps> = ({ notes, setNotes }) => {
     // console.log("idnote", idNote)
     const handleCreatenote = async () => {
         try {
-            const response = await axios.post('http://localhost:9999/createNote', formData);
+            const response = await axios.post('https://income-tracker-backend-e8yv.onrender.com/createNote', formData);
             const newData = response.data
             const oldData = notes
             const updatedData = [...oldData, newData]

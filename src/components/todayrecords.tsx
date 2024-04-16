@@ -13,7 +13,6 @@ export const TodayRecords = ({ transactions, setTransactions }: TransactionProps
         id = localStorage.getItem('_id');
     }
     const useTransaction = transactions.filter((e) => id !== null && e.userId === id);
-    console.log("useTransaction:", useTransaction);
     
     useEffect(() => {
         const fetchData = async () => {
