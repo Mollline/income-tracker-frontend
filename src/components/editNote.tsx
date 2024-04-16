@@ -1,32 +1,30 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import styles from "@/styles/Home.module.css";
 import axios from "axios";
-interface NoteData {
-    noteTitle: string;
-    note: string;
-}
+import { CiEdit } from "react-icons/ci";
+
 interface Note {
     _id: string;
     noteTitle: string;
     note: string;
-    createdAt: string;
+    createdAt: string; // Ensure createdAt is consistently defined as a string
+}
+interface EditNoteProps {
+    notes: Note[];
+    setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+    note: Note; // Corrected type for the note prop
 }
 
-interface AddNoteProps {
-    notes: NoteData[];
-    setNotes: Dispatch<SetStateAction<Note[]>>
-}
-
-export const AddNote: React.FC<AddNoteProps> = ({ notes, setNotes }) => {
-    // const userTransaction = transactions.filter((e) => id !== null && e.userId === id);
-    // console.log("awesdzc",userTransaction)
+export const EditNote: React.FC<EditNoteProps> = ({ notes, setNotes, note }) => {
+    console.log(note);
     const [formData, setFormData] = useState({
-        noteTitle: '',
-        note: '',
-        noteId: '' 
+        noteTitle: note.noteTitle, // Initialize form data with note data
+        note: note.note,
+        noteId: note._id
     });
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData({
@@ -34,40 +32,42 @@ export const AddNote: React.FC<AddNoteProps> = ({ notes, setNotes }) => {
             [name]: value,
         });
     };
-    // const idNote = notes.filter((e)=>e.noteId === id)
-    // console.log("idnote", idNote)
-    const handleCreatenote = async () => {
+
+    const handleEditnote = async () => {
+        const id = note._id;
+        console.log(id);
         try {
-            const response = await axios.post('http://localhost:9999/createNote', formData);
-            const newData = response.data
-            const oldData = notes
-            const updatedData = [...oldData, newData]
-            setNotes(updatedData)
-            console.log(updatedData)
+            const response = await axios.post(`http://localhost:9999/editNote/${id}`, formData);
+            const newData = response.data;
+            const newDataId = newData._id;
+            const updatedData = notes.map((note) => {
+                if (note._id === newDataId) {
+                    return newData;
+                } else {
+                    return note;
+                }
+            });
+
+            setNotes(updatedData);
             handleClose();
 
         } catch (error) {
             console.log(error);
         }
     };
+
     const [open, setOpen] = useState(false);
-    let id: string | null = null;
-    if (typeof window !== 'undefined') {
-        id = localStorage.getItem('_id');
-    }
+
     const handleOpen = () => {
-        setFormData({
-            noteTitle: '',
-            note: '',
-            noteId: id as string
-        });
         setOpen(true);
     };
+
     const handleClose = () => setOpen(false);
+
     return (
         <div>
-            <Button className={styles.add} onClick={handleOpen} style={{ zIndex: "0", width: "100%" }}>
-                + Add Note
+            <Button onClick={handleOpen} style={{ zIndex: "0", width: "100%",color:'black' }}>
+                <CiEdit />
             </Button>
             <Modal
                 open={open}
@@ -95,7 +95,7 @@ export const AddNote: React.FC<AddNoteProps> = ({ notes, setNotes }) => {
                                     <input style={{ width: "688px", height: '150px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px', padding: "0px 50px" }} type="text" name="note" value={formData.note} onChange={handleInputChange} />
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                     </div>
-                                    <button className={styles.add} onClick={handleCreatenote}>Add Note</button>
+                                    <button className={styles.add} onClick={handleEditnote}>Add Note</button>
                                 </div>
                             </div>
                         </body>

@@ -2,35 +2,45 @@
 import styles from "@/styles/Home.module.css";
 import { AddRecords } from "@/components/addRecords";
 import { TodayRecords } from "@/components/todayrecords";
-import {  useState } from "react";
-import {  TransactionWithId } from "@/components/addRecord";
+import { useState } from "react";
+import { TransactionWithId } from "@/components/addRecord";
 import { useRouter } from "next/router";
+// import ToggleButton from '@mui/material/ToggleButton';
+// import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
 export default function Home() {
   const [transactions, setTransactions] = useState<TransactionWithId[]>([]);
   const [select, setSelect] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("");
   const router = useRouter()
-
+  let id: string | null = null;
+  if (typeof window !== 'undefined') {
+      id = localStorage.getItem('_id');
+  }
+  console.log("id", id)
   const sumIncome = transactions.reduce((total, transaction) => {
-    if (transaction.transactionType === "income") {
-        return total + transaction.amount;
+    if (transaction.transactionType === "income" && transaction.userId===id) {
+      return total + transaction.amount;
     } else {
-        return total;
+      return total;
     }
-}, 0);
-const sumExpense = transactions.reduce((total, transaction) => {
-    if (transaction.transactionType === "expense") {
-        return total + transaction.amount;
+  }, 0);
+  const sumExpense = transactions.reduce((total, transaction) => {
+    if (transaction.transactionType === "expense" && transaction.userId===id) {
+      return total + transaction.amount;
     } else {
-        return total;
+      return total;
     }
-}, 0);
-const Profit = sumIncome - sumExpense;
-const profitColor = Profit < 0 ? "red" : "green"; 
-const gross = Profit < 0 ? "GROSS LOSS" : "GROSS PROFIT"; 
-  const filteredData = select !== "all" ? transactions.filter(t=> t.transactionType === select): transactions
-    
-  const filteredByCategoryData = selectedCategory !== "all" ? filteredData.filter(t=> t.category === selectedCategory): filteredData
+  }, 0);
+  const Profit = sumIncome - sumExpense;
+  const profitColor = Profit < 0 ? "red" : "green";
+  const gross = Profit < 0 ? "GROSS LOSS" : "GROSS PROFIT";
+  const filteredData = select !== "all" ? transactions.filter(t => t.transactionType === select) : transactions
+
+  const filteredByCategoryData = selectedCategory !== "all"
+    ? filteredData.filter(t => t.category === selectedCategory)
+    : filteredData;
+
   return (
     <div>
       <div
@@ -41,7 +51,7 @@ const gross = Profit < 0 ? "GROSS LOSS" : "GROSS PROFIT";
           overflowY: "scroll",
         }}
       >
-        <header className={styles.head} style={{zIndex:"1"}}>
+        <header className={styles.head} style={{ zIndex: "1" }}>
           <div className={styles.headone}>
             <div>
               <svg
@@ -57,19 +67,33 @@ const gross = Profit < 0 ? "GROSS LOSS" : "GROSS PROFIT";
                 />
               </svg>
             </div>
-            <div onClick={()=>router.push('income_tracker')}>Dashboard</div>
+            <div onClick={() => router.push('income_tracker')}>Dashboard</div>
             <div>Records</div>
-            <div onClick={()=>router.push("note")}>Notes</div>
+            <div onClick={() => router.push("note")}>Advice</div>
           </div>
           <div className={styles.headone}>
           </div>
         </header>
         <body className={styles.record_body}>
-          <AddRecords transactions={filteredByCategoryData} setTransactions={setTransactions} select={select} setSelect={setSelect} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
+          <AddRecords transactions={filteredByCategoryData} setTransactions={setTransactions} select={select} setSelect={setSelect} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
           <div>
             <div className={styles.date}>
               <div>
-                <div></div>
+                <div>
+                  {/* <ToggleButtonGroup
+                    color="primary"
+                    // value={formData.transactionType}
+                    exclusive
+                    // onChange={(e: React.MouseEvent<HTMLElement>, value: string) => setFormData({
+                    //   ...formData,
+                    //   transactionType: value,
+                    // })}
+                    aria-label="Transaction Type"
+                  >
+                    <ToggleButton value="income">Last 30 days </ToggleButton>
+                    <ToggleButton value="expense">all data</ToggleButton>
+                  </ToggleButtonGroup> */}
+                </div>
                 <div>Last 30 days</div>
                 <div></div>
               </div>
@@ -84,13 +108,13 @@ const gross = Profit < 0 ? "GROSS LOSS" : "GROSS PROFIT";
                   <div>
 
                   </div>
-                  <div style={{fontSize:"20px"}}>{gross}</div>
+                  <div style={{ fontSize: "20px" }}>{gross}</div>
                 </div>
-                <div style={{color:`${profitColor}`}}>{Profit}</div>
+                <div style={{ color: `${profitColor}` }}>{Profit}</div>
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>
-                <TodayRecords transactions={filteredByCategoryData} setTransactions={setTransactions}/>
+                <TodayRecords transactions={filteredByCategoryData} setTransactions={setTransactions} />
               </div>
 
               <div style={{ width: "894px", marginTop: "24px" }}>

@@ -11,6 +11,16 @@ export default function Home() {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null as Country | null);
   console.log(selectedCountry)
+  const curr = selectedCountry?.value 
+  const country = selectedCountry?.label;
+  if (curr !== undefined) {
+    localStorage.setItem("currency", curr);
+}
+if (country !== undefined) {
+    localStorage.setItem("country", country);
+}
+
+
   const currency = () => {
     router.push("/Balance")
   }

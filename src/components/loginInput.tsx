@@ -26,16 +26,17 @@ export const LoginInput: React.FC<LoginInputProps> = () => {
         return;
       }
 
-      await axios.post("http://localhost:9999/login", {
+      const res = await axios.post("https://income-tracker-backend-e8yv.onrender.com/login", {
         password,
         email,
       });
-
-      // Assuming login was successful
+      const id = res.data._id
+      const name = res.data.name
+      console.log(name, res.data)
       alert("User found");
       router.push("/");
-      localStorage.setItem("email", String(true));
-      localStorage.setItem("_id",String(true))
+      localStorage.setItem("name", name);
+      localStorage.setItem("_id",id)
     } catch (err) {
       // Handle error appropriately
       alert("User not found");

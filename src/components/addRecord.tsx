@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -7,7 +9,6 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 // import { trace } from "console";
 // import { useRouter } from 'next/router';
-
 export interface Transaction {
     userId: string;
     category: string;
@@ -26,13 +27,14 @@ interface AddRecordProps {
     transactions: TransactionWithId[];
     setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
 }
+let id: string | null = null;
+if (typeof window !== 'undefined') {
+    id = localStorage.getItem('_id');
+}
 
 export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransactions }) => {
-    // const user_id = localStorage.getItem("_id");
-    // console.log(user_id)
-
     const [formData, setFormData] = useState<Transaction>({
-        userId: "erfsdc",
+        userId: id as string,
         category: '',
         transactionTitle: '',
         amount: 0,
@@ -50,22 +52,32 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
     };
 
     const handleCreateTransaction = async () => {
+        let id
+        if (typeof window !== 'undefined') {
+            id = localStorage.getItem('_id')
+        }
         try {
             const response = await axios.post('http://localhost:9999/createTransaction', formData);
-            const newData = response.data
-            const oldData = transactions
-            // console.log("old data",oldData)
-            // console.log("new data",newData);
-            const updatedData = [...oldData, newData]
-            // console.log("updatedData",updatedData)
-            setTransactions(updatedData)
-            console.log(updatedData)
+            const newData = response.data;
+            const oldData = transactions;
+            const updatedData = [...oldData, newData];
+            setTransactions(updatedData);
+            console.log(updatedData);
             handleClose();
-
+            setFormData({
+                userId: id as string,
+                category: '',
+                transactionTitle: '',
+                amount: 0,
+                note: '',
+                transactionType: '',
+                createdAt: '',
+            })
         } catch (error) {
             console.log(error);
         }
     };
+
 
     const [open, setOpen] = useState(false);
 
@@ -74,7 +86,7 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
 
     return (
         <div>
-            <Button className={styles.add} onClick={handleOpen} style={{zIndex:"0"}}>
+            <Button className={styles.add} onClick={handleOpen} style={{ zIndex: "0" }}>
                 + Add Record
             </Button>
             <Modal
@@ -119,7 +131,7 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
                                         <option value="food">food</option>
                                         <option value="wage">wage</option>
                                         <option value="shopping">shopping</option>
-                                        <option value="bills">bills</option>
+                                        <option value="snack">snack</option>
                                         <option value="clothing">clothing</option>
                                     </select>
                                     <div style={{ display: 'flex', gap: '20px' }}>
@@ -132,10 +144,10 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
                                 </div>
                                 <div style={{ display: 'flex', gap: '5px', flexDirection: 'column', width: '396px', height: '444px' }}>
                                     <label style={{ color: '#1F2937' }}>Transaction Title:</label>
-                                    <input style={{ width: "344px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }}maxLength={20} type="text" name="transactionTitle" value={formData.transactionTitle} onChange={handleInputChange} />
+                                    <input style={{ width: "344px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} maxLength={20} type="text" name="transactionTitle" value={formData.transactionTitle} onChange={handleInputChange} />
 
                                     <label style={{ color: '#1F2937' }}>Note:</label>
-                                    <input style={{ width: "344px", height: '280px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }}maxLength={70}type="text" name="note" value={formData.note} onChange={handleInputChange} />
+                                    <input style={{ width: "344px", height: '280px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} maxLength={70} type="text" name="note" value={formData.note} onChange={handleInputChange} />
                                 </div>
                             </div>
                         </body>

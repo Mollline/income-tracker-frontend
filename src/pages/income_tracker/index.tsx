@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./styles/income_tracker.module.css";
 import IncomePieChart from '@/components/IncomePieChart';
 import ExpensePieChart from "@/components/ExpensePieChart";
@@ -20,13 +20,30 @@ export default function Home() {
   const Records = () => {
     router.push('records')
   }
-  useEffect(() => {
-    // const isCurrencyComfirmed = () => {
-    //   const user = localStorage.getItem("email");
-    //   if (!user) [router.push("/login")];
-    // };
-    // isCurrencyComfirmed();
-  });
+  let a: string | undefined;
+
+  if (typeof window !== "undefined") {
+      const currency = localStorage.getItem("currency");
+      console.log("currency", currency);
+      if (currency !== null) {
+          a = currency;
+      }
+  } else {
+      console.log("localStorage is not available in this environment.");
+  }
+  let b: string | undefined;
+
+  if (typeof window !== "undefined") {
+      const country = localStorage.getItem("country");
+      console.log("country", country);
+      if (country !== null) {
+          b = country;
+      }
+  } else {
+      console.log("localStorage is not available in this environment.");
+  }
+
+  
   return (
     <div >
       <div
@@ -55,27 +72,18 @@ export default function Home() {
             </div>
             <div>Dashboard</div>
             <div onClick={()=>router.push('records')}>Records</div>
-            <div onClick={()=>router.push('note')}>Notes</div>
+            <div onClick={()=>router.push('note')}>Advice</div>
           </div>
           <div className={styles.headtwo}>
             <div className={styles.headtwo1} onClick={Records}>+ Record</div>
-            <div className={styles.headtwo2}>
-              {/* <Profile imageUrl={imageUrl} setImageUrl={setImageUrl}/> */}
-              <div style={{
-                width: "40px",
-                height: "40px", 
-                borderRadius: "20px",
-                marginLeft: "36px",
-                backgroundImage: "url(`${imageUrl}`)"
-              }}></div>
-
-            </div>
+            <div className={styles.headtwo1} onClick={()=>router.push("login")}>Log out</div>
           </div>
         </header>
         <body>
           <div className={styles.bodyone}>
             <div className={styles.bodyone1} style={{ backgroundImage: `url("dell.png")`, padding: '100px 20px ' }}>
-              <div style={{ color: 'white' }}>Cash</div>
+            <div style={{ color: 'white' }}>Country:{b}</div>
+              <div style={{ color: 'white' }}>Result</div>
               <div style={{ fontSize: '24px', color: 'white' }}>{profit}</div>
             </div>
             <BodyOne2 income={income} expense={expense}/>
@@ -84,18 +92,18 @@ export default function Home() {
             <div className={styles.bodytwo1}>
               <div>
                 {/* <BarChartComponent transactions={transactions}/> */}
-                <IncomePieChart transactions={transactions} setIncome={setIncome} />
+                <IncomePieChart transactions={transactions} setIncome={setIncome} a={a || ''}/>
               </div>
             </div>
             <div className={styles.bodytwo2}>
               <div>
-                <ExpensePieChart transactions={transactions} setExpense={setExpense}/>
+                <ExpensePieChart transactions={transactions} setExpense={setExpense} a={a || ''}/>
               </div>
 
             </div>
           </div>
           <div className={styles.bodythree}>
-            <Bodythree1 transactions={transactions} setTransactions={setTransactions} />
+          <Bodythree1 transactions={transactions} setTransactions={setTransactions} a={a || ''}/>
           </div>
         </body>
       </div>

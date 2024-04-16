@@ -1,22 +1,36 @@
 import styles from "@/styles/Home.module.css";
 import { AddRecord, TransactionWithId } from "./addRecord";
 import Option  from "../components/option";
+import { useEffect } from "react";
 // import transactionSchema from "../../transactionSchema";
 // import { RadioGroup } from "@mui/material";
 
-export type RecordProps = {
-    transactions: TransactionWithId[]
+interface RecordProps {
+    transactions: TransactionWithId[]; // Assuming TransactionWithId is a defined type
     setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
     select: string;
-    setSelect: (_:string)=> void;
+    setSelect: (_: string) => void;
     selectedCategory: string;
-    setSelectedCategory: (_:string)=> void
-}
-console
-export const AddRecords = ({ transactions,setTransactions, select, setSelect, selectedCategory, setSelectedCategory}:RecordProps) => {
-    const onSelectCategory =  (event: never)=> {
-        setSelectedCategory(event.target.innerText)
-    }
+    setSelectedCategory: (_: string) => void;
+  }
+  
+  export const AddRecords: React.FC<RecordProps> = ({
+    transactions,
+    setTransactions,
+    select,
+    setSelect,
+    setSelectedCategory
+  }) => {
+    // Initialize selectedCategory with "all" when component mounts
+    useEffect(() => {
+      setSelectedCategory("all");
+    }, []);
+  
+    const onSelectCategory = (event: React.MouseEvent<HTMLDivElement>) => {
+      setSelectedCategory((event.target as HTMLDivElement).innerText);
+    };
+  
+  
        return( <div>
             <div className={styles.records}>
                 <div className={styles.recordAdd}>
@@ -24,8 +38,7 @@ export const AddRecords = ({ transactions,setTransactions, select, setSelect, se
                         Records
                     </div>
                     <AddRecord transactions={transactions} setTransactions={setTransactions}/>
-                    <div>
-                        <input className={styles.input} placeholder="Search"></input>
+                    <div style={{margin:"20px"}} >
                     </div>
                     <div>
                         <div style={{ fontWeight: 'bold' }}>Types</div>
@@ -57,4 +70,4 @@ export const AddRecords = ({ transactions,setTransactions, select, setSelect, se
     )
 }
 
-const array = ["all",'food','wage', 'clothing','bills','shopping']
+const array = ["all",'food','wage', 'clothing','snack','shopping']

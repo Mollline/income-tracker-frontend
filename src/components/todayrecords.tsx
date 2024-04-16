@@ -7,16 +7,21 @@ export type TransactionProps = {
     transactions: TransactionWithId[]
     setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
 }
-
 export const TodayRecords = ({ transactions, setTransactions }: TransactionProps) => {
+    let id: string | null = null;
+    if (typeof window !== 'undefined') {
+        id = localStorage.getItem('_id');
+    }
+    const useTransaction = transactions.filter((e) => id !== null && e.userId === id);
+    console.log("useTransaction:", useTransaction);
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:9999/getTransactions');
+                const response = await axios.get('https://income-tracker-backend-e8yv.onrender.com/getTransactions');
                 if (response.status === 200) {
                     const trans = response.data as TransactionWithId[];
                     setTransactions(trans)
-                    console.log(trans)
                 } else {
                     console.error('Failed to fetch transactions:', response.statusText);
                 }
@@ -27,9 +32,10 @@ export const TodayRecords = ({ transactions, setTransactions }: TransactionProps
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    
     return (
         <div>
-            {transactions.slice().reverse().map((transaction, index) => (
+            {useTransaction.slice().reverse().map((transaction, index) => (
                 <SingleTransaction key={index} transaction={transaction} transactions={transactions} setTransactions={setTransactions} />
             ))}
 

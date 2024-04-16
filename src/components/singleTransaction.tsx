@@ -15,7 +15,17 @@ export const SingleTransaction = ({
   transactions,
   setTransactions,
 }:Props) => {
+  let a: string | undefined;
 
+  if (typeof window !== "undefined") {
+      const currency = localStorage.getItem("currency");
+      console.log("currency", currency);
+      if (currency !== null) {
+          a = currency;
+      }
+  } else {
+      console.log("localStorage is not available in this environment.");
+  }
   const bgColor = (type: string) => {
     if (type === "expense") {
       return "red";
@@ -59,6 +69,7 @@ export const SingleTransaction = ({
       );
     }
   }
+  
   return (
     <div className={styles.selectOne} key={transaction._id}>
       <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
@@ -76,7 +87,7 @@ export const SingleTransaction = ({
             </div>
       <div style={{ display: "flex", gap: "20px" }}>
         <div style={{ color: `${bgColor(transaction.transactionType)}`,width:"100px"}}>
-          {transaction.amount} MNT
+          {transaction.amount} {a}
         </div>
         <div>
           <Edit transaction={transaction} setTransactions={setTransactions} transactions={transactions}/>

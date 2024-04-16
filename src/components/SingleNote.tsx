@@ -1,13 +1,14 @@
 import axios from "axios";
 import { MdDeleteOutline } from "react-icons/md";
+import { EditNote } from "@/components/editNote";
 
 interface Note {
     _id: string;
     noteTitle: string;
     note: string;
-    createdAt: string; // You might want to adjust the type based on the actual format of createdAt
+    createdAt: string; // Adjust the type based on the actual format of createdAt
+    noteId?: string; // Optional if it's not always present
 }
-
 interface Props {
     notes: Note[];
     information: string | null;
@@ -28,20 +29,15 @@ export const SingleNote: React.FC<Props> = ({ notes, information, setInformation
             console.log(err);
         }
     };
+    let id: string | null = null;
+    if (typeof window !== 'undefined') {
+        id = localStorage.getItem('_id');
+    }
 
     return (
-        <div
-            style={{
-                width: "40vw",
-                backgroundColor: "white",
-                height: "100vh",
-                marginTop: "50px",
-                borderRadius: "20px",
-                padding: "20px 50px ",
-            }}
-        >
+        <div>
             {notes
-                .filter(note => note.noteTitle.toLowerCase().includes(searchQuery.toLowerCase())) // Filter notes based on search query
+              .filter(note => note.noteTitle.toLowerCase().includes(searchQuery.toLowerCase())) // Filter notes based on search query
                 .slice()
                 .reverse()
                 .map((note) => (
@@ -70,8 +66,17 @@ export const SingleNote: React.FC<Props> = ({ notes, information, setInformation
                             >
                                 {information === note.noteTitle ? "Back" : `${note.noteTitle}`}
                             </div>
-                            <div style={{ display: information ? "flex" : "flex", cursor: "pointer" }} onClick={() => handleDelete(note._id)}>
-                                <MdDeleteOutline />
+                            <div style={{ display: information ? "flex" : "flex", cursor: "pointer" }}>
+                                {
+                                    id === note.noteId ?
+                                        (
+                                            <div style={{ display: 'flex', justifyContent:'center',alignItems:'center'}}>
+                                                <div  onClick={() => handleDelete(note._id)} style={{color:'grey',marginTop:'10px'}}><MdDeleteOutline /></div>
+                                               <div><EditNote notes={notes} setNotes={setNotes} note={note}/></div>
+                                            </div>
+                                        ) : null
+                                }
+
                             </div>
                         </div>
                         {information === note.noteTitle && (
@@ -80,6 +85,7 @@ export const SingleNote: React.FC<Props> = ({ notes, information, setInformation
                                     width: "100%",
                                     padding: "10px 50px",
                                     borderRadius: "20px",
+                                    color: 'black'
                                 }}
                             >
                                 {note.note}
@@ -87,7 +93,8 @@ export const SingleNote: React.FC<Props> = ({ notes, information, setInformation
                         )}
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
                             <div style={{ color: 'D1D5DB', fontSize: '13px' }}>
-                                {note.createdAt}
+                            {note.createdAt}
+
                             </div>
                         </div>
                     </div>
