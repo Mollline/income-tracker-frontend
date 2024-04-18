@@ -54,7 +54,7 @@ export const Bodythree1: React.FC<AddRecordProps> = ({transactions, setTransacti
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:9999/getTransactions');
+        const response = await axios.get('https://income-tracker-backend-e8yv.onrender.com/getTransactions');
         if (response.status === 200) {
           const trans = response.data;
           setTransactions(trans)

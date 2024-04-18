@@ -61,7 +61,7 @@ export const SignupInput: React.FC = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:9999/signup', {
+      const response = await axios.post('https://income-tracker-backend-e8yv.onrender.com/signup', {
         name,
         password,
         email,

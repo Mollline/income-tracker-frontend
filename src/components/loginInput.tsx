@@ -26,7 +26,7 @@ export const LoginInput: React.FC<LoginInputProps> = () => {
         return;
       }
 
-      const res = await axios.post("http://localhost:9999/login", {
+      const res = await axios.post("https://income-tracker-backend-e8yv.onrender.com/login", {
         password,
         email,
       });

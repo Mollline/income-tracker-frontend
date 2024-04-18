@@ -49,7 +49,7 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
                 setError("Please fill in all required fields.");
                 return;
             }
-            const response = await axios.post('http://localhost:9999/createTransaction', formData);
+            const response = await axios.post('https://income-tracker-backend-e8yv.onrender.com/createTransaction', formData);
             const newData = response.data;
             const oldData = transactions;
             const updatedData = [...oldData, newData];

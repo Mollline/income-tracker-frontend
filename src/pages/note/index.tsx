@@ -29,7 +29,7 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:9999/getNotes');
+                const response = await axios.get('https://income-tracker-backend-e8yv.onrender.com/getNotes');
                 if (response.status === 200) {
                     const note: Note[] = response.data;
                     setNotes(note);
