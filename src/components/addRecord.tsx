@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -7,8 +5,6 @@ import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-// import { trace } from "console";
-// import { useRouter } from 'next/router';
 export interface Transaction {
     userId: string;
     category: string;
@@ -18,11 +14,9 @@ export interface Transaction {
     transactionType: string;
     createdAt: string;
 }
-
 export interface TransactionWithId extends Transaction {
     _id: string
 }
-
 interface AddRecordProps {
     transactions: TransactionWithId[];
     setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
@@ -31,7 +25,6 @@ let id: string | null = null;
 if (typeof window !== 'undefined') {
     id = localStorage.getItem('_id');
 }
-
 export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransactions }) => {
     const [formData, setFormData] = useState<Transaction>({
         userId: id as string,
@@ -42,21 +35,20 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
         transactionType: '',
         createdAt: '',
     });
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const [error, setError] = useState<string | null>(null);
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value,
         });
     };
-
     const handleCreateTransaction = async () => {
-        let id
-        if (typeof window !== 'undefined') {
-            id = localStorage.getItem('_id')
-        }
         try {
+            if (!formData.category || !formData.transactionTitle || !formData.amount || !formData.transactionType || !formData.createdAt) {
+                setError("Please fill in all required fields.");
+                return;
+            }
             const response = await axios.post('http://localhost:9999/createTransaction', formData);
             const newData = response.data;
             const oldData = transactions;
@@ -64,26 +56,25 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
             setTransactions(updatedData);
             console.log(updatedData);
             handleClose();
-            setFormData({
-                userId: id as string,
-                category: '',
-                transactionTitle: '',
-                amount: 0,
-                note: '',
-                transactionType: '',
-                createdAt: '',
-            })
+            resetFormData();
         } catch (error) {
             console.log(error);
         }
     };
-
-
+    const resetFormData = () => {
+        setFormData({
+            userId: id as string,
+            category: '',
+            transactionTitle: '',
+            amount: 0,
+            note: '',
+            transactionType: '',
+            createdAt: '',
+        });
+    };
     const [open, setOpen] = useState(false);
-
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     return (
         <div>
             <Button className={styles.add} onClick={handleOpen} style={{ zIndex: "0" }}>
@@ -122,11 +113,10 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
                                         <ToggleButton value="income">Income</ToggleButton>
                                         <ToggleButton value="expense">Expense</ToggleButton>
                                     </ToggleButtonGroup>
-
                                     <label style={{ color: '#1F2937' }}>Amount:</label>
-                                    <input style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="number" name="amount" value={formData.amount} onChange={handleInputChange} />
+                                    <input style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px',paddingLeft:'10px'}} type="number" name="amount" value={formData.amount} onChange={handleInputChange} />
                                     <label style={{ color: '#1F2937' }}>Category:</label>
-                                    <select style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} name="category" value={formData.category} onChange={handleInputChange}>
+                                    <select style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px',padding:'10px' }} name="category" value={formData.category} onChange={handleInputChange}>
                                         <option value=""></option>
                                         <option value="food">food</option>
                                         <option value="wage">wage</option>
@@ -137,17 +127,17 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
                                     <div style={{ display: 'flex', gap: '20px' }}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                             <label style={{ color: '#1F2937' }}>Date:</label>
-                                            <input style={{ width: '336px', height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="date" name="createdAt" value={formData.createdAt} onChange={handleInputChange} />
+                                            <input style={{ width: '336px', height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px',paddingLeft:'10px' }} type="date" name="createdAt" value={formData.createdAt} onChange={handleInputChange} />
                                         </div>
                                     </div>
-                                    <button className={styles.add} onClick={handleCreateTransaction}>Add Record</button>
+                                    <button className={styles.add} style={{width:'100%'}} onClick={handleCreateTransaction}>Add Record</button>
+                                    <div style={{color:'red',textAlign:'center'}}>{error}</div>
                                 </div>
                                 <div style={{ display: 'flex', gap: '5px', flexDirection: 'column', width: '396px', height: '444px' }}>
                                     <label style={{ color: '#1F2937' }}>Transaction Title:</label>
-                                    <input style={{ width: "344px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} maxLength={20} type="text" name="transactionTitle" value={formData.transactionTitle} onChange={handleInputChange} />
-
+                                    <input style={{ width: "344px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px',paddingLeft:'10px' }} maxLength={20} type="text" name="transactionTitle" value={formData.transactionTitle} onChange={handleInputChange} />
                                     <label style={{ color: '#1F2937' }}>Note:</label>
-                                    <input style={{ width: "344px", height: '280px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} maxLength={70} type="text" name="note" value={formData.note} onChange={handleInputChange} />
+                                    <textarea style={{ width: "344px", height: '280px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px', paddingLeft: '10px' }} maxLength={70} name="note" value={formData.note} onChange={handleInputChange}></textarea>
                                 </div>
                             </div>
                         </body>
@@ -157,3 +147,4 @@ export const AddRecord: React.FC<AddRecordProps> = ({ transactions, setTransacti
         </div>
     );
 };
+

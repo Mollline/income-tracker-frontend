@@ -26,26 +26,29 @@ export const LoginInput: React.FC<LoginInputProps> = () => {
         return;
       }
 
-      const res = await axios.post("https://income-tracker-backend-e8yv.onrender.com/login", {
+      const res = await axios.post("http://localhost:9999/login", {
         password,
         email,
       });
       const id = res.data._id
       const name = res.data.name
       console.log(name, res.data)
-      alert("User found");
+      // const email = res.data.email
+      alert("Good Job !!");
       router.push("/");
       localStorage.setItem("name", name);
       localStorage.setItem("_id",id)
+      localStorage.setItem("email",email);
     } catch (err) {
-      // Handle error appropriately
       alert("User not found");
       console.error(err);
     } finally {
       setIsLoading(false);
     }
   };
-
+  const changeRoute = () => {
+    router.replace("/");
+  };
   return (
     <div
       style={{
@@ -117,7 +120,7 @@ export const LoginInput: React.FC<LoginInputProps> = () => {
               justifyContent: "center",
               cursor: "pointer",
             }}
-            onClick={() => loginUser(email, password)}
+            onClick={() =>{changeRoute(), loginUser(email, password)}}
           >
             <div
               style={{

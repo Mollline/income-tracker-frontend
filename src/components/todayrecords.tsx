@@ -17,7 +17,7 @@ export const TodayRecords = ({ transactions, setTransactions }: TransactionProps
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://income-tracker-backend-e8yv.onrender.com/getTransactions');
+                const response = await axios.get('http://localhost:9999/getTransactions');
                 if (response.status === 200) {
                     const trans = response.data as TransactionWithId[];
                     setTransactions(trans)

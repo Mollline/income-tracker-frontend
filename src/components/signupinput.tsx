@@ -15,15 +15,18 @@ export const SignupInput: React.FC = () => {
   const [passwordError, setPasswordError] = useState('');
   const [rePasswordError, setRePasswordError] = useState('');
 
+  const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>, setError: React.Dispatch<React.SetStateAction<string>>, minChars: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setter(newValue);
+    if (newValue.length < minChars) {
+      setError(`Field must be at least ${minChars} characters long`);
+    } else {
+      setError('');
+    }
+  };
+
   const validateInputs = () => {
     let isValid = true;
-
-    if (name.length < 4) {
-      setNameError('Name must be at least 4 characters long');
-      isValid = false;
-    } else {
-      setNameError('');
-    }
 
     if (!email.includes('@')) {
       setEmailError('Invalid email address');
@@ -58,7 +61,7 @@ export const SignupInput: React.FC = () => {
         return;
       }
 
-      const response = await axios.post('https://income-tracker-backend-e8yv.onrender.com/signup', {
+      const response = await axios.post('http://localhost:9999/signup', {
         name,
         password,
         email,
@@ -93,36 +96,36 @@ export const SignupInput: React.FC = () => {
           type="text"
           placeholder="Name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleInputChange(setName, setNameError, 4)}
         />
-        {nameError && <div style={{ color: 'red', marginBottom: '5px' }}>{nameError}</div>}
+        <div style={{ color: 'red', marginBottom: '5px' }}>{nameError}</div>
 
         <input
           style={inputStyle}
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleInputChange(setEmail, setEmailError, 4)}
         />
-        {emailError && <div style={{ color: 'red', marginBottom: '5px' }}>{emailError}</div>}
+         <div style={{ color: 'red', marginBottom: '5px' }}>{emailError}</div>
 
         <input
           style={inputStyle}
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleInputChange(setPassword, setPasswordError, 8)}
         />
-        {passwordError && <div style={{ color: 'red', marginBottom: '5px' }}>{passwordError}</div>}
+        <div style={{ color: 'red', marginBottom: '5px' }}>{passwordError}</div>
 
         <input
           style={inputStyle}
           type="password"
           placeholder="Re-enter Password"
           value={rePassword}
-          onChange={(e) => setRePassword(e.target.value)}
+          onChange={handleInputChange(setRePassword, setRePasswordError, 8)}
         />
-        {rePasswordError && <div style={{ color: 'red', marginBottom: '5px' }}>{rePasswordError}</div>}
+        <div style={{ color: 'red', marginBottom: '5px' }}>{rePasswordError}</div>
 
         <button onClick={createUser} disabled={isLoading} style={{ ...inputStyle, marginBottom: '10px', backgroundColor: "#0166FF",color:'white',borderRadius:'20px' }}>
           {isLoading ? 'Signing up...' : 'Sign up'}

@@ -39,7 +39,7 @@ export const Delete: React.FC<DeleteRecordProps> = ({ transaction, transactions,
     const handleDelete = async () => {
         const id = transaction._id;
         try {
-            await axios.delete(`https://income-tracker-backend-e8yv.onrender.com/deleteTransaction/${id}`);
+            await axios.delete(`http://localhost:9999/deleteTransaction/${id}`);
             const reDelete = transactions.filter((e) => e._id !== id);
             setTransactions(reDelete);
         } catch (err) {

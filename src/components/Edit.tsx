@@ -42,7 +42,7 @@ export const Edit = ({ transactions, setTransactions, transaction }: EditProps) 
     const handleEditTransaction = async () => {
         try {
             // Update formData with the latest changes
-            const response = await axios.post(`https://income-tracker-backend-e8yv.onrender.com/editTransaction/${id}`, formData);
+            const response = await axios.post(`http://localhost:9999/editTransaction/${id}`, formData);
             handleClose();
             const newData = response.data;
             const newDataId = newData._id;

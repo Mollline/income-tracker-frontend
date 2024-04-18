@@ -4,7 +4,12 @@ import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import { AddNote } from "@/components/addNote";
 import { SingleNote } from "@/components/SingleNote";
-
+interface Note {
+    _id: string;
+    noteTitle: string;
+    note: string;
+    createdAt: string; // You might want to adjust the type based on the actual format of createdAt
+}
 interface Note {
     _id: string;
     noteTitle: string;
@@ -12,17 +17,19 @@ interface Note {
     createdAt: string; // You might want to adjust the type based on the actual format of createdAt
 }
 
+
 export default function Home() {
     const router = useRouter();
     const [information, setInformation] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>('');
-
-    const [notes, setNotes] = useState<Note[]>([]);
-
+    
+    const initialNotes: Note[] = []; 
+    const [notes, setNotes] = useState<Note[]>(initialNotes);
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://income-tracker-backend-e8yv.onrender.com/getNotes');
+                const response = await axios.get('http://localhost:9999/getNotes');
                 if (response.status === 200) {
                     const note: Note[] = response.data;
                     setNotes(note);
@@ -58,9 +65,9 @@ export default function Home() {
                             />
                         </svg>
                     </div>
-                    <div onClick={() => router.push("income_tracker")}style={{color:'black'}}>Dashboard</div>
-                    <div onClick={() => router.push("records")}style={{color:'black'}}>Records</div>
-                    <div style={{color:'black'}}>Advice</div>
+                    <div onClick={() => router.push("income_tracker")}style={{color:'black',cursor:'pointer'}}>Dashboard</div>
+                    <div onClick={() => router.push("records")}style={{color:'black',cursor:'pointer'}}>Records</div>
+                    <div style={{color:'black',cursor:'pointer'}} >Advice</div>
                 </div>
             </header>
             <body

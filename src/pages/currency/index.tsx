@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Stepper, Step, StepLabel } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
@@ -11,19 +12,24 @@ export default function Home() {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null as Country | null);
   console.log(selectedCountry)
-  const curr = selectedCountry?.value 
+  const curr = selectedCountry?.value
   const country = selectedCountry?.label;
   if (curr !== undefined) {
     localStorage.setItem("currency", curr);
-}
-if (country !== undefined) {
+  }
+  if (country !== undefined) {
     localStorage.setItem("country", country);
-}
+  }
 
 
   const currency = () => {
-    router.push("/Balance")
-  }
+    if (selectedCountry !== null) {
+      router.push("/Balance");
+    } else {
+      alert("Please select a country.");
+    }
+  };
+
   interface Value {
     cca3: string;
     name: {

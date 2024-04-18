@@ -4,13 +4,13 @@ import { Doughnut } from "react-chartjs-2";
 import { TransactionWithId } from "./addRecord";
 ChartJS.register(ArcElement, Tooltip, Legend);
 // const [data, setData] = useState([]);
- type ChartProps = {
+type ChartProps = {
     transactions: TransactionWithId[]
-    setIncome:Dispatch<SetStateAction<number>>
-    a:string
+    setIncome: Dispatch<SetStateAction<number>>
+    a: string
 }
-export const IncomePieChart = ({ transactions,setIncome,a}: ChartProps) => {
-    console.log('iyawebfdwefc',a)
+export const IncomePieChart = ({ transactions, setIncome, a }: ChartProps) => {
+    console.log('iyawebfdwefc', a)
     let id: string | null = null;
     if (typeof window !== 'undefined') {
         id = localStorage.getItem('_id');
@@ -22,7 +22,7 @@ export const IncomePieChart = ({ transactions,setIncome,a}: ChartProps) => {
             return total + transaction.amount;
         } else {
             return total
-          }
+        }
     }, 0)
     const shopping = userTransaction.reduce((total, transaction) => {
         if (transaction.transactionType === 'income' && transaction.category === "shopping") {
@@ -52,12 +52,12 @@ export const IncomePieChart = ({ transactions,setIncome,a}: ChartProps) => {
             return total
         }
     }, 0)
-    const categories = ["Food", "Shopping", "Snack", "Clothing","Wage"];
-    const incomes = [`${food}`, `${shopping}`, `${snack}`, `${clothing}`,`${wage}`];
-    const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`,'green'];
+    const categories = ["Food", "Shopping", "Snack", "Clothing", "Wage"];
+    const incomes = [`${food}`, `${shopping}`, `${snack}`, `${clothing}`, `${wage}`];
+    const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`, 'green'];
 
     const sum = incomes.reduce((a, b) => Number(a) - Number(b), 0);
-    const sumIncome = sum*-1
+    const sumIncome = sum * -1
     setIncome(sumIncome)
     const dataSet = {
         labels: categories,
@@ -94,7 +94,7 @@ export const IncomePieChart = ({ transactions,setIncome,a}: ChartProps) => {
                     padding: "0 20px",
                     height: '56px'
                 }}>
-                <h1 style={{color:"#84CC16",fontSize:"20px"}}>Total income: {sum*-1} {a}</h1>
+                <h1 style={{ color: "#84CC16", fontSize: "20px" }}>Total income: {sum * -1} {a}</h1>
             </div>
             <div
                 style={{
@@ -115,14 +115,14 @@ export const IncomePieChart = ({ transactions,setIncome,a}: ChartProps) => {
                     options={options}
                     style={{ maxHeight: "170px", maxWidth: "170px" }}
                 />
-                <Labels categories={categories} colors={colors} incomes={incomes} sum={sum} a={a}/>
+                <Labels categories={categories} colors={colors} incomes={incomes} sum={sum} a={a} />
             </div>
         </div>
     </div>
     )
 }
 
-const Labels = ({ categories, colors, incomes, sum,a }: { categories: string[], colors: string[], incomes: string[], sum: number, a:string}) => {
+const Labels = ({ categories, colors, incomes, sum, a }: { categories: string[], colors: string[], incomes: string[], sum: number, a: string }) => {
     return (
         <div>
             {categories.map((category, index) => (
@@ -141,7 +141,9 @@ const Labels = ({ categories, colors, incomes, sum,a }: { categories: string[], 
                         <p style={{ marginRight: "10px" }}>{category}</p>
                     </div>
                     <div style={{ width: "100px", color: "#84CC16" }}>{incomes[index]} {a}</div>
-                    <div style={{ width: "100px" }}>{Math.round((Number(incomes[index]) * -100) / sum)}%</div>
+                    <div style={{ width: "100px" }}>
+                        {isNaN(Math.round((Number(incomes[index]) * -100) / sum)) ? 0 : Math.round((Number(incomes[index]) * -100) / sum)}%
+                    </div>
                 </div>
             ))}
         </div>

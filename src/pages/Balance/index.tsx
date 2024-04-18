@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Stepper, Step, StepLabel } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -5,14 +6,23 @@ import { useState } from "react";
 export default function Home() {
   const steps = ["Currency", "Balance", "Finish"];
   const activeStep = 1;
-  const [email, setEmail] = useState<string>('');
+  const [cash, setCash] = useState<string>('');
 
   const router = useRouter();
 
-  const balance = () => {
-    console.log(email)
+const handleCash = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setCash(e.target.value);
+}
+
+const balance = () => {
+  if (cash.trim() === "") {
+    alert("Please fill in the cash field.");
+  } else {
+    localStorage.setItem("cash", cash);
     router.push("/finish");
-  };
+  }
+};
+
   return (
     <div
       style={{
@@ -173,10 +183,10 @@ export default function Home() {
                   backgroundColor: "#F3F4F6",
                   border: '1px solid #D1D5DB'
                 }}
-                onChange={e => setEmail(e.target.value)}
-                value={email}
-                placeholder="email"
-                type="email"
+                onChange={handleCash}
+                value={cash}
+                placeholder="cash"
+                type="number"
               ></input>
             </div>
             <div
@@ -188,7 +198,7 @@ export default function Home() {
                 fontSize: "12px",
                 lineHeight: "16px",
                 color: '#475569',
-                margin:"10px 10px"
+                margin: "10px 10px"
               }}
             >
               How much cash do you have in your wallet?

@@ -67,9 +67,9 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <div onClick={() => router.push('income_tracker')}>Dashboard</div>
-            <div>Records</div>
-            <div onClick={() => router.push("note")}>Advice</div>
+            <div onClick={() => router.push('income_tracker')} style={{cursor:'pointer'}}>Dashboard</div>
+            <div style={{cursor:'pointer'}}>Records</div>
+            <div onClick={() => router.push("note")} style={{cursor:'pointer'}}>Advice</div>
           </div>
           <div className={styles.headone}>
           </div>
@@ -80,21 +80,8 @@ export default function Home() {
             <div className={styles.date}>
               <div>
                 <div>
-                  {/* <ToggleButtonGroup
-                    color="primary"
-                    // value={formData.transactionType}
-                    exclusive
-                    // onChange={(e: React.MouseEvent<HTMLElement>, value: string) => setFormData({
-                    //   ...formData,
-                    //   transactionType: value,
-                    // })}
-                    aria-label="Transaction Type"
-                  >
-                    <ToggleButton value="income">Last 30 days </ToggleButton>
-                    <ToggleButton value="expense">all data</ToggleButton>
-                  </ToggleButtonGroup> */}
                 </div>
-                <div>Last 30 days</div>
+                <div>All days</div>
                 <div></div>
               </div>
               <div>

@@ -20,7 +20,7 @@ interface Props {
 export const SingleNote: React.FC<Props> = ({ notes, information, setInformation, setNotes, searchQuery }) => {
     const handleDelete = async (id: string) => {
         try {
-            const response = await axios.delete(`https://income-tracker-backend-e8yv.onrender.com/deleteNote/${id}`);
+            const response = await axios.delete(`http://localhost:9999/deleteNote/${id}`);
             console.log(response);
             // Filter out the deleted note from the state
             const updatedNotes = notes.filter((note) => note._id !== id);

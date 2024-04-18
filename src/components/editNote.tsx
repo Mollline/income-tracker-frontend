@@ -37,7 +37,7 @@ export const EditNote: React.FC<EditNoteProps> = ({ notes, setNotes, note }) => 
         const id = note._id;
         console.log(id);
         try {
-            const response = await axios.post(`https://income-tracker-backend-e8yv.onrender.com/editNote/${id}`, formData);
+            const response = await axios.post(`http://localhost:9999/editNote/${id}`, formData);
             const newData = response.data;
             const newDataId = newData._id;
             const updatedData = notes.map((note) => {
