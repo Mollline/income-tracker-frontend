@@ -3,7 +3,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { TransactionWithId } from "./addRecord";
 ChartJS.register(ArcElement, Tooltip, Legend);
-// const [data, setData] = useState([]);
 type ChartProps = {
     transactions: TransactionWithId[]
     setIncome: Dispatch<SetStateAction<number>>
@@ -16,7 +15,6 @@ export const IncomePieChart = ({ transactions, setIncome, a }: ChartProps) => {
         id = localStorage.getItem('_id');
     }
     const userTransaction = transactions.filter((e) => id !== null && e.userId === id);
-    // console.log("awesdzc",userTransaction)
     const food = userTransaction.reduce((total, transaction) => {
         if (transaction.transactionType === 'income' && transaction.category === "food") {
             return total + transaction.amount;
@@ -55,7 +53,6 @@ export const IncomePieChart = ({ transactions, setIncome, a }: ChartProps) => {
     const categories = ["Food", "Shopping", "Snack", "Clothing", "Wage"];
     const incomes = [`${food}`, `${shopping}`, `${snack}`, `${clothing}`, `${wage}`];
     const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`, 'green'];
-
     const sum = incomes.reduce((a, b) => Number(a) - Number(b), 0);
     const sumIncome = sum * -1
     setIncome(sumIncome)
@@ -121,7 +118,6 @@ export const IncomePieChart = ({ transactions, setIncome, a }: ChartProps) => {
     </div>
     )
 }
-
 const Labels = ({ categories, colors, incomes, sum, a }: { categories: string[], colors: string[], incomes: string[], sum: number, a: string }) => {
     return (
         <div>
