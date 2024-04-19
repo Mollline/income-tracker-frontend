@@ -114,8 +114,8 @@ export default function Home() {
                         padding: "20px 50px ",
                     }}
                 >
-                    <div style={{fontSize:'20px', fontWeight:"bold",color:'black',margin:'15px'}}>Users Latest Advices </div>
-                    <div style={{fontSize:'13px',color:'black',margin:'20px'}}>CLICK THE NAME </div>
+                    <div style={{fontSize:'20px', fontWeight:"bold",color:'black',margin:'15px'}}>Users Latest Advices and Notes</div>
+                    <div style={{fontSize:'13px',color:'black',margin:'20px'}}>CLICK THE TITLE </div>
                     <SingleNote notes={notes} information={information} setInformation={setInformation} setNotes={setNotes} searchQuery={searchQuery} />
                 </div>
             </body>

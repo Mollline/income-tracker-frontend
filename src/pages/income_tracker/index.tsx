@@ -15,20 +15,26 @@ export default function Home() {
   const [expense, setExpense] = useState<number>(0);
   const profit = income + expense
   const router = useRouter()
-  const Records = () => {
-    router.push('records')
+  const handleCurrency = () => {
+    localStorage.removeItem('currency');
+    router.push(`/currency`);
   }
-  let c: string | undefined;
+  const handleCash = () => {
+    localStorage.removeItem('cash');
+    router.push(`/Balance`);
+  }
 
-  if (typeof window !== "undefined") {
+let c: string | undefined;
+if (typeof window !== "undefined") {
     const cash = localStorage.getItem("cash");
     console.log("cash", cash);
     if (cash !== null) {
-      c = cash;
+        c = cash;
     }
-  } else {
+} else {
     console.log("localStorage is not available in this environment.");
-  }
+}
+
   let a: string | undefined;
 
   if (typeof window !== "undefined") {
@@ -52,11 +58,8 @@ export default function Home() {
     console.log("localStorage is not available in this environment.");
   }
   const handleLogout = () => {
-    localStorage.removeItem("email");
     router.push("/login");
   };
-
-
   return (
     <div >
       <div
@@ -67,7 +70,7 @@ export default function Home() {
           overflowY: "scroll",
         }}
       >
-        <header className={styles.head}>
+        <header className={styles.head} >
           <div className={styles.headone} style={{ border: '0' }}>
             <div>
               <svg
@@ -83,26 +86,28 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <div style={{ cursor: 'pointer' }}>Dashboard</div>
-            <div onClick={() => router.push('records')} style={{ cursor: 'pointer' }}>Records</div>
-            <div onClick={() => router.push('note')} style={{ cursor: 'pointer' }}>Advice</div>
+            <div style={{ cursor: 'pointer', color: 'black' }}>Dashboard</div>
+            <div onClick={() => router.push('records')} style={{ cursor: 'pointer', color: 'black' }}>Records</div>
+            <div onClick={() => router.push('note')} style={{ cursor: 'pointer', color: 'black' }}>Advice</div>
           </div>
           <div className={styles.headtwo}>
-            <div className={styles.headtwo1} onClick={Records}>+ Record</div>
-            <div className={styles.headtwo1} onClick={handleLogout}>Log out</div>
+            <div className={styles.headtwo1} style={{ width: '250px' }} onClick={handleCash}>Modify cash</div>
+            <div className={styles.headtwo1} style={{ width: '250px' }} onClick={handleCurrency}>Modify currency</div>
+            <div className={styles.headtwo1} style={{ width: '150px' }} onClick={handleLogout}>Log out</div>
           </div>
         </header>
-        <body>
-          <div className={styles.bodyone}>
+        <body style={{ backgroundColor: 'RGB(195,195,195' }}>
+          <div className={styles.bodyone}  >
             <div className={styles.bodyone1} style={{ backgroundImage: `url("dell.png")`, padding: '100px 20px ' }}>
               <div style={{ color: 'white' }}>Cash:{c}</div>
               <div style={{ color: 'white' }}>Country:{b}</div>
               <div style={{ color: 'white' }}>Result</div>
+              <div style={{ color: 'red' }}>{}</div>
               <div style={{ fontSize: '24px', color: 'white' }}>{profit}</div>
             </div>
             <BodyOne2 income={income} expense={expense} />
           </div>
-          <div className={styles.bodytwo}>
+          <div className={styles.bodytwo} >
             <div className={styles.bodytwo1}>
               <div>
                 {/* <BarChartComponent transactions={transactions}/> */}
@@ -116,7 +121,7 @@ export default function Home() {
 
             </div>
           </div>
-          <div className={styles.bodythree}>
+          <div className={styles.bodythree} >
             <Bodythree1 transactions={transactions} setTransactions={setTransactions} a={a || ''} />
           </div>
         </body>

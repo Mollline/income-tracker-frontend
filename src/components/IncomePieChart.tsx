@@ -134,10 +134,10 @@ const Labels = ({ categories, colors, incomes, sum, a }: { categories: string[],
                                 borderRadius: "50%",
                             }}
                         />
-                        <p style={{ marginRight: "10px" }}>{category}</p>
+                        <p style={{ marginRight: "10px",color:'black'}}>{category}</p>
                     </div>
                     <div style={{ width: "100px", color: "#84CC16" }}>{incomes[index]} {a}</div>
-                    <div style={{ width: "100px" }}>
+                    <div style={{ width: "100px",color:'black'}}>
                         {isNaN(Math.round((Number(incomes[index]) * -100) / sum)) ? 0 : Math.round((Number(incomes[index]) * -100) / sum)}%
                     </div>
                 </div>

@@ -67,7 +67,8 @@ export const Data = () => {
             fontWeight: 600,
             lineHeight: '32px',
             letterSpacing: '0em',
-            textAlign: 'left'
+            textAlign: 'left',
+            color:'black'
           }}>
             Welcome Back
           </div>
@@ -78,6 +79,7 @@ export const Data = () => {
             fontSize: "17px",
             fontWeight: 400,
             lineHeight: "24px",
+            color:'black'
           }}
         >
           Welcome back, Please enter your details

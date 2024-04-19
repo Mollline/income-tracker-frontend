@@ -68,7 +68,7 @@ export const Delete: React.FC<DeleteRecordProps> = ({ transaction, transactions,
                     aria-describedby="keep-mounted-modal-description"
                 >
                     <Box sx={style}>
-                        <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+                        <Typography id="keep-mounted-modal-title" variant="h6" component="h2" style={{color:'black'}}>
                             Are you sure to delete this transaction?
                         </Typography>
                         <div style={{ fontSize: '15px', color: "grey", fontWeight: "bold" }} onClick={toggleShowModal}>

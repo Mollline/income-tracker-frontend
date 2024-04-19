@@ -34,20 +34,17 @@ export const LoginInput: React.FC<LoginInputProps> = () => {
       const name = res.data.name
       console.log(name, res.data)
       // const email = res.data.email
-      alert("Good Job !!");
+      alert("Good Job!!!");
       router.push("/");
       localStorage.setItem("name", name);
       localStorage.setItem("_id",id)
       localStorage.setItem("email",email);
     } catch (err) {
-      alert("User not found");
+      alert("Incorrect email or password");
       console.error(err);
     } finally {
       setIsLoading(false);
     }
-  };
-  const changeRoute = () => {
-    router.replace("/");
   };
   return (
     <div
@@ -80,6 +77,7 @@ export const LoginInput: React.FC<LoginInputProps> = () => {
               borderRadius: "8px",
               border: "1px solid #D1D5DB",
               backgroundColor: "#F3F4F6",
+              color:'black'
             }}
             placeholder="Email"
             value={email}
@@ -97,6 +95,7 @@ export const LoginInput: React.FC<LoginInputProps> = () => {
               borderRadius: "8px",
               border: "1px solid #D1D5DB",
               backgroundColor: "#F3F4F6",
+              color:'black'
             }}
             placeholder="Password"
             type="password"
@@ -120,7 +119,7 @@ export const LoginInput: React.FC<LoginInputProps> = () => {
               justifyContent: "center",
               cursor: "pointer",
             }}
-            onClick={() =>{changeRoute(), loginUser(email, password)}}
+            onClick={() => loginUser(email, password)}
           >
             <div
               style={{

@@ -77,7 +77,7 @@ export const Bodythree1: React.FC<AddRecordProps> = ({transactions, setTransacti
   return (
     <div className={styles.bodythree1}>
       <div className={styles.bodythree11}>
-        <div>Last Records</div>
+        <div style={{color:'black'}}>Last Records</div>
       </div>
       <div className={styles.bodythree12}>
         {useTransaction.slice(-5).reverse().map((transactions, index) => (
@@ -87,12 +87,12 @@ export const Bodythree1: React.FC<AddRecordProps> = ({transactions, setTransacti
                 {iconColor(transactions.transactionType)}
               </div>
               <div>
-                <div>{transactions.category}</div>
+                <div style={{color:'black'}}>{transactions.category}</div>
                 <div style={{ color: '#6B7280' }}>{transactions.createdAt}</div>
               </div>
             </div>
             <div style={{width:"700px",overflowY:"scroll"}}>
-              <div style={{fontSize:"15px" }}>{transactions.transactionTitle}</div>
+              <div style={{fontSize:"15px",color:'black'}}>{transactions.transactionTitle}</div>
               <div style={{color:"#6B7280"}}>{transactions.note}</div>
             </div>
             <div style={{ color: `${bgColor(transactions.transactionType)}`,width:"100px" }}>{transactions.amount} {a}</div>

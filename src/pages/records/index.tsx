@@ -47,11 +47,11 @@ export default function Home() {
         style={{
           height: "100vh",
           width: "100vw",
-          backgroundColor: "#F3F4F6",
+          backgroundColor: "RGB(195,195,195",
           overflowY: "scroll",
         }}
       >
-        <header className={styles.head} style={{ zIndex: "1" }}>
+        <header className={styles.head} style={{ zIndex: "1"}}>
           <div className={styles.headone}>
             <div>
               <svg
@@ -67,14 +67,15 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <div onClick={() => router.push('income_tracker')} style={{cursor:'pointer'}}>Dashboard</div>
-            <div style={{cursor:'pointer'}}>Records</div>
-            <div onClick={() => router.push("note")} style={{cursor:'pointer'}}>Advice</div>
+            <div onClick={() => router.push('income_tracker')} style={{cursor:'pointer',color:'black'}}>Dashboard</div>
+            <div style={{cursor:'pointer',color:'black'}}>Records</div>
+            <div onClick={() => router.push("note")} style={{cursor:'pointer',color:'black'}}>Advice</div>
           </div>
           <div className={styles.headone}>
           </div>
         </header>
-        <body className={styles.record_body}>
+
+        <body className={styles.record_body} style={{backgroundColor:'RGB(195,195,195'}}>
           <AddRecords transactions={filteredByCategoryData} setTransactions={setTransactions} select={select} setSelect={setSelect} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
           <div>
             <div className={styles.date}>
@@ -95,7 +96,7 @@ export default function Home() {
                   <div>
 
                   </div>
-                  <div style={{ fontSize: "20px" }}>{gross}</div>
+                  <div style={{ fontSize: "20px",color:'black' }}>{gross}</div>
                 </div>
                 <div style={{ color: `${profitColor}` }}>{Profit}</div>
               </div>
@@ -110,6 +111,7 @@ export default function Home() {
             </div>
           </div>
         </body>
+
       </div>
     </div>
   );

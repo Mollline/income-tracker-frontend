@@ -37,67 +37,68 @@ export const SingleNote: React.FC<Props> = ({ notes, information, setInformation
     return (
         <div>
             {notes
-              .filter(note => note.noteTitle.toLowerCase().includes(searchQuery.toLowerCase())) // Filter notes based on search query
+                .filter(note => note.noteTitle.toLowerCase().includes(searchQuery.toLowerCase())) // Filter notes based on search query
                 .slice()
                 .reverse()
                 .map((note) => (
                     <div
-                        key={note._id} // Assuming _id is the unique identifier of each note
+                    key={note._id} // Assuming _id is the unique identifier of each note
+                    style={{
+                        border: "#D1D5DB 2px solid",
+                        width: "100%",
+                        padding: "10px 50px",
+                        borderRadius: "20px",
+                        margin: "10px 0px",
+                        backgroundColor: id === note.noteId ? "RGB(137, 193, 247)" : "transparent", // Conditional background color
+                    }}
+                >
+                    <div
                         style={{
-                            border: "#D1D5DB 2px solid",
-                            width: "100%",
-                            padding: "10px 50px",
-                            borderRadius: "20px",
-                            margin: "10px 0px "
+                            display: "flex",
+                            justifyContent: "space-between",
+                            color: 'black'
                         }}
                     >
                         <div
+                            onClick={() => setInformation(information === note.noteTitle ? null : note.noteTitle)}
                             style={{
-                                display: "flex",
-                                justifyContent: "space-between"
+                                cursor: "pointer",
+                                color: information === note.noteTitle ? "#0166FF" : "inherit",
                             }}
                         >
-                            <div
-                                onClick={() => setInformation(information === note.noteTitle ? null : note.noteTitle)}
-                                style={{
-                                    cursor: "pointer",
-                                    color: information === note.noteTitle ? "#0166FF" : "inherit"
-                                }}
-                            >
-                                {information === note.noteTitle ? "Back" : `${note.noteTitle}`}
-                            </div>
-                            <div style={{ display: information ? "flex" : "flex", cursor: "pointer" }}>
-                                {
-                                    id === note.noteId ?
-                                        (
-                                            <div style={{ display: 'flex', justifyContent:'center',alignItems:'center'}}>
-                                                <div  onClick={() => handleDelete(note._id)} style={{color:'grey',marginTop:'10px'}}><MdDeleteOutline /></div>
-                                               <div><EditNote notes={notes} setNotes={setNotes} note={note}/></div>
-                                            </div>
-                                        ) : null
-                                }
-
-                            </div>
+                            {information === note.noteTitle ? "Back" : `${note.noteTitle}`}
                         </div>
-                        {information === note.noteTitle && (
-                            <div
-                                style={{
-                                    width: "100%",
-                                    padding: "10px 50px",
-                                    borderRadius: "20px",
-                                    color: 'black'
-                                }}
-                            >
-                                {note.note}
-                            </div>
-                        )}
-                        <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                            <div style={{ color: 'D1D5DB', fontSize: '13px' }}>
-                            {note.createdAt}
-
-                            </div>
+                        <div style={{ display: information ? "flex" : "flex", cursor: "pointer" }}>
+                            {
+                                id === note.noteId ?
+                                    (
+                                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <div onClick={() => handleDelete(note._id)} style={{ color: 'grey', marginTop: '7px' }}><MdDeleteOutline /></div>
+                                            <div><EditNote notes={notes} setNotes={setNotes} note={note} /></div>
+                                        </div>
+                                    ) : null
+                            }
                         </div>
                     </div>
+                    {information === note.noteTitle && (
+                        <div
+                            style={{
+                                width: "100%",
+                                padding: "10px 50px",
+                                borderRadius: "20px",
+                                color: 'black'
+                            }}
+                        >
+                            {note.note}
+                        </div>
+                    )}
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ color: 'grey', fontSize: '13px' }}>
+                            {note.createdAt}
+                        </div>
+                    </div>
+                </div>
+                
                 ))}
         </div>
     );

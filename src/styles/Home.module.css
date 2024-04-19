@@ -7,7 +7,6 @@
   padding: 0px 120px;
   align-items: center;
 }
-
 .headone {
   width: 225.4px;
   height: 40px;
@@ -257,7 +256,7 @@
   top: 256px;
   left: 324px;
   border-radius: 12px;
-  background-color: white;
+  background-color:RGB(195,195,195);
 }
 .addRecordHeader {
   display: flex;

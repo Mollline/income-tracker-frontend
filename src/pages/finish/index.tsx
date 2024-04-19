@@ -155,6 +155,7 @@ export default function Home() {
                 alignItems: "center  ",
                 justifyContent: "center",
                 display: "flex",
+                color:'black'
               }}
             >
               Good Job!

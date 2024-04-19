@@ -14,15 +14,17 @@ export default function Home() {
   console.log(selectedCountry)
   const curr = selectedCountry?.value
   const country = selectedCountry?.label;
-  if (curr !== undefined) {
-    localStorage.setItem("currency", curr);
-  }
-  if (country !== undefined) {
-    localStorage.setItem("country", country);
-  }
+
+
 
 
   const currency = () => {
+    if (curr !== undefined) {
+      localStorage.setItem("currency", curr);
+    }
+    if (country !== undefined) {
+      localStorage.setItem("country", country);
+    }
     if (selectedCountry !== null) {
       router.push("/Balance");
     } else {
@@ -57,6 +59,13 @@ export default function Home() {
 
     fetchCountries();
   }, []);
+  useEffect(() => {
+    const isUserLoggedIn = () => {
+      const user = localStorage.getItem("currency");
+      if (user) [router.push("/Balance")];
+    };
+    isUserLoggedIn();
+  });
 
   return (
     <div
@@ -199,23 +208,24 @@ export default function Home() {
                 alignItems: "center  ",
                 justifyContent: "center",
                 display: "flex",
+                color:'black'
               }}
             >
               Select base currency
             </div>
           </div>
-          <div>
+          <div style={{color:'black'}}>
             <Select
               options={countries}
               value={selectedCountry}
               onChange={(selectedOption) => setSelectedCountry(selectedOption)}
               placeholder="Select a country"
             />
-            {selectedCountry && (
-              <p>
+            <div style={{color:'black'}}>{selectedCountry && (
+              <p style={{color:'black'}}>
                 You selected: {selectedCountry.label} ({selectedCountry.value})
               </p>
-            )}
+            )}</div>
           </div>
           <div
             style={{

@@ -67,7 +67,9 @@ export const Signupdata = () => {
             fontWeight: 600,
             lineHeight: '32px',
             letterSpacing: '0em',
-            textAlign: 'left'
+            textAlign: 'left',
+            color:'black'
+
           }}>
             Create Geld account
           </div>
@@ -79,6 +81,8 @@ export const Signupdata = () => {
             fontSize: "17px",
             fontWeight: 400,
             lineHeight: "24px",
+            color:'black'
+
           }}
         >
           Sign up below to create your Wallet account

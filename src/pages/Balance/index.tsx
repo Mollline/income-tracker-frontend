@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import { Stepper, Step, StepLabel } from "@material-ui/core";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const steps = ["Currency", "Balance", "Finish"];
@@ -22,7 +22,13 @@ const balance = () => {
     router.push("/finish");
   }
 };
-
+useEffect(() => {
+  const isUserLoggedIn = () => {
+    const user = localStorage.getItem("cash");
+    if (user) [router.push("/income_tracker")];
+  };
+  isUserLoggedIn();
+});
   return (
     <div
       style={{
@@ -167,6 +173,7 @@ const balance = () => {
                 alignItems: "center  ",
                 justifyContent: "center",
                 display: "flex",
+                color:'black'
               }}
             >
               Set up your cash balance
@@ -181,7 +188,8 @@ const balance = () => {
                   padding: "16px",
                   borderRadius: "8px",
                   backgroundColor: "#F3F4F6",
-                  border: '1px solid #D1D5DB'
+                  border: '1px solid #D1D5DB',
+                  color:'black'
                 }}
                 onChange={handleCash}
                 value={cash}

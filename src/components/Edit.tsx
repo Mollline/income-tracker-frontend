@@ -28,7 +28,7 @@ export const Edit = ({ transactions, setTransactions, transaction }: EditProps) 
         createdAt: transaction.createdAt,
     });
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prevFormData => ({
             ...prevFormData,
@@ -54,10 +54,7 @@ export const Edit = ({ transactions, setTransactions, transaction }: EditProps) 
                 }
             });
 
-<<<<<<< HEAD
             console.log(updatedData);
-=======
->>>>>>> 676b0a732176fefab67a4922da00a56bbfaee916
             setTransactions(updatedData);
         } catch (error) {
             console.log(error);
@@ -78,7 +75,7 @@ export const Edit = ({ transactions, setTransactions, transaction }: EditProps) 
                 <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', marginTop: '200px' }}>
                     <div className={styles.addRecord}>
                         <header className={styles.addRecordHeader}>
-                            <div style={{ fontWeight: 'bold' }}>
+                            <div style={{ fontWeight: 'bold',color:'black' }}>
                                 Edit record
                             </div>
                             <svg onClick={handleClose} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,8 +83,9 @@ export const Edit = ({ transactions, setTransactions, transaction }: EditProps) 
                             </svg>
 
                         </header>
-                        <body className={styles.addRecordBody}>
-                            <div style={{ display: 'flex', gap: '20px', margin: "20px" }}>
+                        <body className={styles.addRecordBody} style={{borderRadius:'12px'}}>
+                            <div style={{backgroundColor:'RGB(195,195,195)' }}>
+                            <div style={{ display: 'flex', gap: '20px', margin: "20px"}}>
                                 <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', width: '396px', height: '444px' }}>
                                     <label style={{ color: '#1F2937' }}>Transaction Type:</label>
                                     <ToggleButtonGroup
@@ -104,9 +102,9 @@ export const Edit = ({ transactions, setTransactions, transaction }: EditProps) 
                                         <ToggleButton value="expense">Expense</ToggleButton>
                                     </ToggleButtonGroup>
                                     <label style={{ color: '#1F2937' }}>Amount:</label>
-                                    <input style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="number" name="amount" value={formData.amount} onChange={handleInputChange} />
+                                    <input style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px',color:'black'}} type="number" name="amount" value={formData.amount} onChange={handleInputChange} />
                                     <label style={{ color: '#1F2937' }}>Category:</label>
-                                    <select style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} name="category" value={formData.category} onChange={handleInputChange}>
+                                    <select style={{ width: "384px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px',color:'black' }} name="category" value={formData.category} onChange={handleInputChange}>
                                         <option value="food">Food</option>
                                         <option value="shopping">Shopping</option>
                                         <option value="bills">Bills</option>
@@ -115,18 +113,20 @@ export const Edit = ({ transactions, setTransactions, transaction }: EditProps) 
                                     <div style={{ display: 'flex', gap: '20px' }}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                             <label style={{ color: '#1F2937' }}>Date:</label>
-                                            <input style={{ width: '336px', height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} type="date" name="createdAt" value={formData.createdAt} onChange={handleInputChange} />
+                                            <input style={{ width: '336px', height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px',color:'black' }} type="date" name="createdAt" value={formData.createdAt} onChange={handleInputChange} />
                                         </div>
                                     </div>
                                     <button className={styles.add} onClick={handleEditTransaction}>Edit Record</button>
                                 </div>
                                 <div style={{ display: 'flex', gap: '5px', flexDirection: 'column', width: '396px', height: '444px' }}>
                                     <label style={{ color: '#1F2937' }}>Transaction Title:</label>
-                                    <input style={{ width: "344px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} maxLength={20} type="text" name="transactionTitle" value={formData.transactionTitle} onChange={handleInputChange} />
+                                    <input style={{ width: "344px", height: '48px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px',color:'black',paddingLeft:'20px'}} maxLength={20} type="text" name="transactionTitle" value={formData.transactionTitle} onChange={handleInputChange} />
 
                                     <label style={{ color: '#1F2937' }}>Note:</label>
-                                    <input style={{ width: "344px", height: '280px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px' }} maxLength={70} type="text" name="note" value={formData.note} onChange={handleInputChange} />
+                                    <textarea style={{ width: "344px", height: '280px', border: '1px solid #D1D5DB', backgroundColor: '#F9FAFB', borderRadius: '5px', paddingLeft: '20px',color:'black',paddingTop:'20px' }} maxLength={70} name="note" value={formData.note} onChange={handleInputChange}></textarea>
+
                                 </div>
+                            </div>
                             </div>
                         </body>
                     </div>

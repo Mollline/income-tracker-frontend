@@ -17,7 +17,7 @@
 }
 
 .headtwo {
-  width: 250px;
+  width: 550px;
   height: 40px;
   gap: 24px;
   display: flex;
@@ -25,7 +25,6 @@
 }
 
 .headtwo1 {
-  width: 99px;
   height: 32px;
   display: flex;
   align-items: center;

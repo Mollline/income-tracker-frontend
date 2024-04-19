@@ -52,6 +52,7 @@ export default function Home() {
                             lineHeight: "24px",
                             letterSpacing: "0em",
                             textAlign: "left",
+                            color:'black'
                         }}
                     >
                         Dont have an account

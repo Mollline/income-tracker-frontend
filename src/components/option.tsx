@@ -22,7 +22,7 @@ const Option = ({select, setSelect}:{
                 value={select}
                 onChange={handleChange}
             >
-                <div style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column',color:'black'}}>
                     <FormControlLabel value="all" control={<Radio />} label="All " />
                     <FormControlLabel value="income" control={<Radio />} label="Income" />
                     <FormControlLabel value="expense" control={<Radio />} label="Expense" />
