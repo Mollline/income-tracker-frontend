@@ -2,50 +2,59 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { TransactionWithId } from "./addRecord";
-
 ChartJS.register(ArcElement, Tooltip, Legend);
-// const [data, setData] = useState([]);
- type ChartProps = {
+type ChartProps = {
     transactions: TransactionWithId[]
-    setIncome:Dispatch<SetStateAction<number>>
+    setIncome: Dispatch<SetStateAction<number>>
+    a: string
 }
-export const IncomePieChart = ({ transactions,setIncome}: ChartProps) => {
-    console.log(transactions)
-    const food = transactions.reduce((total, transaction) => {
+export const IncomePieChart = ({ transactions, setIncome, a }: ChartProps) => {
+    console.log('iyawebfdwefc', a)
+    let id: string | null = null;
+    if (typeof window !== 'undefined') {
+        id = localStorage.getItem('_id');
+    }
+    const userTransaction = transactions.filter((e) => id !== null && e.userId === id);
+    const food = userTransaction.reduce((total, transaction) => {
         if (transaction.transactionType === 'income' && transaction.category === "food") {
             return total + transaction.amount;
         } else {
             return total
         }
     }, 0)
-    const shopping = transactions.reduce((total, transaction) => {
+    const shopping = userTransaction.reduce((total, transaction) => {
         if (transaction.transactionType === 'income' && transaction.category === "shopping") {
             return total + transaction.amount;
         } else {
             return total
         }
     }, 0)
-    const bills = transactions.reduce((total, transaction) => {
-        if (transaction.transactionType === 'income' && transaction.category === "bills") {
+    const snack = userTransaction.reduce((total, transaction) => {
+        if (transaction.transactionType === 'income' && transaction.category === "snack") {
             return total + transaction.amount;
         } else {
             return total
         }
     }, 0)
-    const clothing = transactions.reduce((total, transaction) => {
+    const clothing = userTransaction.reduce((total, transaction) => {
         if (transaction.transactionType === 'income' && transaction.category === "clothing") {
             return total + transaction.amount;
         } else {
             return total
         }
     }, 0)
-
-    const categories = ["Food", "Shopping", "Bills", "Clothing"];
-    const incomes = [`${food}`, `${shopping}`, `${bills}`, `${clothing}`,];
-    const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`];
-
-    const sum = incomes.reduce((a, b) => a - b, 0);
-    const sumIncome = sum*-1
+    const wage = userTransaction.reduce((total, transaction) => {
+        if (transaction.transactionType === 'income' && transaction.category === "wage") {
+            return total + transaction.amount;
+        } else {
+            return total
+        }
+    }, 0)
+    const categories = ["Food", "Shopping", "Snack", "Clothing", "Wage"];
+    const incomes = [`${food}`, `${shopping}`, `${snack}`, `${clothing}`, `${wage}`];
+    const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`, 'green'];
+    const sum = incomes.reduce((a, b) => Number(a) - Number(b), 0);
+    const sumIncome = sum * -1
     setIncome(sumIncome)
     const dataSet = {
         labels: categories,
@@ -82,7 +91,7 @@ export const IncomePieChart = ({ transactions,setIncome}: ChartProps) => {
                     padding: "0 20px",
                     height: '56px'
                 }}>
-                <h1 style={{color:"#84CC16",fontSize:"20px"}}>Total income: {sum*-1} MNT</h1>
+                <h1 style={{ color: "#84CC16", fontSize: "20px" }}>Total income: {sum * -1} {a}</h1>
             </div>
             <div
                 style={{
@@ -103,14 +112,13 @@ export const IncomePieChart = ({ transactions,setIncome}: ChartProps) => {
                     options={options}
                     style={{ maxHeight: "170px", maxWidth: "170px" }}
                 />
-                <Labels categories={categories} colors={colors} incomes={incomes} sum={sum} />
+                <Labels categories={categories} colors={colors} incomes={incomes} sum={sum} a={a} />
             </div>
         </div>
     </div>
     )
 }
-
-const Labels = ({ categories, colors, incomes, sum }: { categories: string[], colors: string[], incomes: number[], sum: number }) => {
+const Labels = ({ categories, colors, incomes, sum, a }: { categories: string[], colors: string[], incomes: string[], sum: number, a: string }) => {
     return (
         <div>
             {categories.map((category, index) => (
@@ -128,24 +136,13 @@ const Labels = ({ categories, colors, incomes, sum }: { categories: string[], co
                         />
                         <p style={{ marginRight: "10px" }}>{category}</p>
                     </div>
-                    <div style={{ width: "100px", color: "#84CC16" }}>{incomes[index]} MNT</div>
-                    <div style={{ width: "100px" }}>{Math.round((incomes[index] * -100) / sum)}%</div>
+                    <div style={{ width: "100px", color: "#84CC16" }}>{incomes[index]} {a}</div>
+                    <div style={{ width: "100px" }}>
+                        {isNaN(Math.round((Number(incomes[index]) * -100) / sum)) ? 0 : Math.round((Number(incomes[index]) * -100) / sum)}%
+                    </div>
                 </div>
             ))}
         </div>
     );
 };
 export default IncomePieChart;
-// export const IncomePieChart = ({ transactions, setIncome }: ChartProps) => {
-//     console.log(transactions);
-
-//     const categoryTotals = transactions.reduce((totals, transaction) => {
-//         if (transaction.transactionType === 'income') {
-//             totals[transaction.category] = (totals[transaction.category] || 0) + transaction.amount;
-//         }
-//         return totals;
-//     }, {});
-
-//     const categories = Object.keys(categoryTotals);
-//     const incomes = Object.values(categoryTotals).map(amount => `${amount}`);
-//     const colors = ["#1C64F2", "#E74694", "#FDBA8C", `#16BDCA`];

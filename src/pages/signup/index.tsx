@@ -53,13 +53,14 @@ export default function Home() {
                    >
                     <div
                       style={{
+                        marginTop:'50px',
                         fontSize: "16px",
                         fontWeight: "400",
                         lineHeight: "24px",
                         letterSpacing: "0em",
                         textAlign: "left",
                       }}
-                    >
+                     >
                       Already have an account
                     </div>
                     <div
@@ -79,7 +80,8 @@ export default function Home() {
                           lineHeight: "24px",
                           letterSpacing: "0em",
                           textAlign: "left",
-                          color:'#0166FF'
+                          color:'#0166FF',
+                          marginTop:'50px'
                         }}
                         onClick={()=>{router.push('login')}}
                       >Log in</div>

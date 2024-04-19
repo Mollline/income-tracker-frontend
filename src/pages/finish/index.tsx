@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Stepper, Step, StepLabel } from "@material-ui/core";
 import { useRouter } from "next/router";
 

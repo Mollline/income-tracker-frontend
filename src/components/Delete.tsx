@@ -18,56 +18,69 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-interface deleteRecordProps {
+
+interface DeleteRecordProps {
     transactions: TransactionWithId[];
     setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
     transaction: TransactionWithId;
-  }
-export const Delete: React.FC<deleteRecordProps>  = ({ transaction, transactions, setTransactions }) => {
+}
+
+export const Delete: React.FC<DeleteRecordProps> = ({ transaction, transactions, setTransactions }) => {
     const [open, setOpen] = React.useState(false);
+    const [showModal, setShowModal] = React.useState(true); // Control whether to show the modal or not
+
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+
+    const handleClose = () => {
+        setShowModal(false); // Toggle showModal to false
+        setOpen(false); // Close the modal
+    };
+
     const handleDelete = async () => {
         const id = transaction._id;
-        console.log(id);
         try {
-            const response = await axios.delete(
-                `http://localhost:9999/deleteTransaction/${id}`
-            );
-            console.log(response);
-            console.log("w4a5ergfd", transactions);
-            console.log("ervf", transaction);
-
+            await axios.delete(`https://income-tracker-backend-e8yv.onrender.com/deleteTransaction/${id}`);
             const reDelete = transactions.filter((e) => e._id !== id);
             setTransactions(reDelete);
-            console.log(reDelete);
         } catch (err) {
             console.log(err);
         }
+        handleClose(); // Close the modal after deletion
     };
+
+    // Toggle the showModal state
+    const toggleShowModal = () => {
+        setShowModal(!showModal);
+    };
+
+    // Show modal only if showModal is true
     return (
         <div>
-            <Button onClick={handleOpen}>
-                <MdDeleteOutline/>
+            <Button onClick={showModal ? handleOpen : handleDelete}>
+                <MdDeleteOutline />
             </Button>
-            <Modal
-                keepMounted
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="keep-mounted-modal-title"
-                aria-describedby="keep-mounted-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-                        Are you shure to delete this transaction?
-                    </Typography>
-                    <div style={{fontSize:'15px', color:"grey",fontWeight:"bold"}}>Do not show it again </div>
-                    <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-                    <Button onClick={() => handleDelete()}>move to trash</Button>
-                    <Button onClick={handleClose}>cancell</Button>
-                    </Typography>
-                </Box>
-            </Modal>
+            {showModal && (
+                <Modal
+                    keepMounted
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="keep-mounted-modal-title"
+                    aria-describedby="keep-mounted-modal-description"
+                >
+                    <Box sx={style}>
+                        <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+                            Are you sure to delete this transaction?
+                        </Typography>
+                        <div style={{ fontSize: '15px', color: "grey", fontWeight: "bold" }} onClick={toggleShowModal}>
+                            Do not show it again
+                        </div>
+                        <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+                            <Button onClick={handleDelete}>move to trash</Button>
+                            <Button onClick={handleClose}>cancel</Button>
+                        </Typography>
+                    </Box>
+                </Modal>
+            )}
         </div>
     );
 }

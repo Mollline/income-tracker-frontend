@@ -4,18 +4,34 @@ import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import { AddNote } from "@/components/addNote";
 import { SingleNote } from "@/components/SingleNote";
+interface Note {
+    _id: string;
+    noteTitle: string;
+    note: string;
+    createdAt: string; // You might want to adjust the type based on the actual format of createdAt
+}
+interface Note {
+    _id: string;
+    noteTitle: string;
+    note: string;
+    createdAt: string; // You might want to adjust the type based on the actual format of createdAt
+}
+
 
 export default function Home() {
     const router = useRouter();
-    const [information, setInformation] = useState(null);
-    const [notes, setNotes] = useState([]);
-
+    const [information, setInformation] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState<string>('');
+    
+    const initialNotes: Note[] = []; 
+    const [notes, setNotes] = useState<Note[]>(initialNotes);
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:9999/getNotes');
+                const response = await axios.get('https://income-tracker-backend-e8yv.onrender.com/getNotes');
                 if (response.status === 200) {
-                    const note = response.data;
+                    const note: Note[] = response.data;
                     setNotes(note);
                 } else {
                     console.error('Failed to fetch notes:', response.statusText);
@@ -26,6 +42,10 @@ export default function Home() {
         };
         fetchData();
     }, []);
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
+    };
 
     return (
         <div>
@@ -45,10 +65,10 @@ export default function Home() {
                             />
                         </svg>
                     </div>
-                    <div onClick={() => router.push("income_tracker")}>Dashboard</div>
-                    <div onClick={() => router.push("records")}>Records</div>
+                    <div onClick={() => router.push("income_tracker")}style={{color:'black',cursor:'pointer'}}>Dashboard</div>
+                    <div onClick={() => router.push("records")}style={{color:'black',cursor:'pointer'}}>Records</div>
+                    <div style={{color:'black',cursor:'pointer'}} >Advice</div>
                 </div>
-                <AddNote notes={notes} setNotes={setNotes}/>
             </header>
             <body
                 style={{
@@ -57,10 +77,47 @@ export default function Home() {
                     backgroundColor: "#F3F4F6",
                     display: "flex",
                     justifyContent: "center",
+                    gap: "20px"
                 }}
             >
-             <SingleNote notes={notes} information={information} setInformation={setInformation} setNotes={setNotes}/>
-             
+                <div style={{
+                    width: "14vw",
+                    backgroundColor: "white",
+                    height: "100vh",
+                    marginTop: "50px",
+                    borderRadius: "20px",
+                    padding: "10px 20px "
+                }}>
+                    <div style={{ fontSize: "24px", fontWeight: "bold", padding: "24px 0px" ,color:'black'}}>
+                        Advice</div>
+                    <AddNote notes={notes} setNotes={setNotes}/>
+                    <div>
+                        <input className={styles.input} placeholder="Search"
+                            value={searchQuery}
+                            onChange={handleSearch}
+                            style={{ width: "100%" }}></input>
+                    </div>
+                    <div>
+                        <div style={{ fontWeight: 'bold', marginTop: '20px',color:'black' }}>Notes</div>
+                    </div>
+                    <div style={{ padding: '20px 10px' }}>
+                        {notes.slice().reverse().map((title, index) => (<div style={{ gap: "10px" ,color:'black'}} key={index}>- {title.noteTitle}</div>))}
+                    </div>
+                </div>
+                <div
+                    style={{
+                        width: "40vw",
+                        backgroundColor: "white",
+                        height: "100vh",
+                        marginTop: "50px",
+                        borderRadius: "20px",
+                        padding: "20px 50px ",
+                    }}
+                >
+                    <div style={{fontSize:'20px', fontWeight:"bold",color:'black',margin:'15px'}}>Users Latest Advices </div>
+                    <div style={{fontSize:'13px',color:'black',margin:'20px'}}>CLICK THE NAME </div>
+                    <SingleNote notes={notes} information={information} setInformation={setInformation} setNotes={setNotes} searchQuery={searchQuery} />
+                </div>
             </body>
         </div>
     );

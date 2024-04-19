@@ -6,8 +6,9 @@ import { TransactionWithId } from "./addRecord";
 interface AddRecordProps {
   transactions: TransactionWithId[];
   setTransactions: React.Dispatch<React.SetStateAction<TransactionWithId[]>>;
+  a:string
 }
-export const Bodythree1: React.FC<AddRecordProps> = ({transactions, setTransactions}) => {
+export const Bodythree1: React.FC<AddRecordProps> = ({transactions, setTransactions,a}) => {
   const bgColor = (type: string) => {
     if (type === "expense") {
       return "red";
@@ -53,7 +54,7 @@ export const Bodythree1: React.FC<AddRecordProps> = ({transactions, setTransacti
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:9999/getTransactions');
+        const response = await axios.get('https://income-tracker-backend-e8yv.onrender.com/getTransactions');
         if (response.status === 200) {
           const trans = response.data;
           setTransactions(trans)
@@ -66,14 +67,20 @@ export const Bodythree1: React.FC<AddRecordProps> = ({transactions, setTransacti
     };
     fetchData();
   }, []);
-
+  let id: string | null = null;
+  if (typeof window !== 'undefined') {
+      id = localStorage.getItem('_id');
+  }
+  const useTransaction = transactions.filter((e) => id !== null && e.userId === id);
+  console.log("useTransaction:", useTransaction);
+  
   return (
     <div className={styles.bodythree1}>
       <div className={styles.bodythree11}>
         <div>Last Records</div>
       </div>
       <div className={styles.bodythree12}>
-        {transactions.slice(-5).reverse().map((transactions, index) => (
+        {useTransaction.slice(-5).reverse().map((transactions, index) => (
           <div className={styles.bodythree121} key={index}>
             <div style={{ display: 'flex', gap: '20px' }}>
               <div>
@@ -88,7 +95,7 @@ export const Bodythree1: React.FC<AddRecordProps> = ({transactions, setTransacti
               <div style={{fontSize:"15px" }}>{transactions.transactionTitle}</div>
               <div style={{color:"#6B7280"}}>{transactions.note}</div>
             </div>
-            <div style={{ color: `${bgColor(transactions.transactionType)}`,width:"100px" }}>{transactions.amount} MNT</div>
+            <div style={{ color: `${bgColor(transactions.transactionType)}`,width:"100px" }}>{transactions.amount} {a}</div>
           </div>
         ))}
 

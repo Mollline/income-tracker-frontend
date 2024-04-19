@@ -1,10 +1,26 @@
 import axios from "axios";
 import { MdDeleteOutline } from "react-icons/md";
+import { EditNote } from "@/components/editNote";
 
-export const SingleNote = ({ notes, information, setInformation, setNotes }) => {
-    const handleDelete = async (id) => {
+interface Note {
+    _id: string;
+    noteTitle: string;
+    note: string;
+    createdAt: string; // Adjust the type based on the actual format of createdAt
+    noteId?: string; // Optional if it's not always present
+}
+interface Props {
+    notes: Note[];
+    information: string | null;
+    setInformation: React.Dispatch<React.SetStateAction<string | null>>;
+    setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+    searchQuery: string;
+}
+
+export const SingleNote: React.FC<Props> = ({ notes, information, setInformation, setNotes, searchQuery }) => {
+    const handleDelete = async (id: string) => {
         try {
-            const response = await axios.delete(`http://localhost:9999/deleteNote/${id}`);
+            const response = await axios.delete(`https://income-tracker-backend-e8yv.onrender.com/deleteNote/${id}`);
             console.log(response);
             // Filter out the deleted note from the state
             const updatedNotes = notes.filter((note) => note._id !== id);
@@ -13,87 +29,76 @@ export const SingleNote = ({ notes, information, setInformation, setNotes }) => 
             console.log(err);
         }
     };
-    const handleEditNote = async () => {
-        try {
-            // Update formData with the latest changes
-            const response = await axios.post(`http://localhost:9999/editnotes/${id}`,{
-                noteTitle: "",
-                createdAt: "",
-                note: "",
-        });
+    let id: string | null = null;
+    if (typeof window !== 'undefined') {
+        id = localStorage.getItem('_id');
+    }
 
-            const newData = response.data;
-            const newDataId = newData._id;
-            const updatedData = notes.map((note) => {
-                if (note._id === newDataId) {
-                    return newData;
-                } else {
-                    return note;
-                }
-            });
-
-            console.log(updatedData);
-            setNotes(updatedData);
-        } catch (error) {
-            console.log(error);
-        }
-    };
     return (
-        <div
-            style={{
-                width: "50vw",
-                backgroundColor: "white",
-                height: "100vh",
-                marginTop: "50px",
-                borderRadius: "20px",
-                padding: "20px 50px ",
-            }}
-        >
-            {notes.reverse().map((note) => (
-                <div
-                    key={note._id} // Assuming _id is the unique identifier of each note
-                    style={{
-                        border: "#D1D5DB 2px solid",
-                        width: "100%",
-                        padding: "10px 50px",
-                        borderRadius: "20px",
-                        margin: "10px 0px "
-                    }}
-                >
+        <div>
+            {notes
+              .filter(note => note.noteTitle.toLowerCase().includes(searchQuery.toLowerCase())) // Filter notes based on search query
+                .slice()
+                .reverse()
+                .map((note) => (
                     <div
+                        key={note._id} // Assuming _id is the unique identifier of each note
                         style={{
-                            display: "flex",
-                            justifyContent: "space-between"
+                            border: "#D1D5DB 2px solid",
+                            width: "100%",
+                            padding: "10px 50px",
+                            borderRadius: "20px",
+                            margin: "10px 0px "
                         }}
                     >
                         <div
-                            onClick={() => setInformation(information === note.noteTitle ? null : note.noteTitle)}
                             style={{
-                                cursor: "pointer",
-                                color: information === note.noteTitle ? "#0166FF" : "inherit"
+                                display: "flex",
+                                justifyContent: "space-between"
                             }}
                         >
-                        {information === note.noteTitle ? "Back" : `${note.noteTitle}`}
+                            <div
+                                onClick={() => setInformation(information === note.noteTitle ? null : note.noteTitle)}
+                                style={{
+                                    cursor: "pointer",
+                                    color: information === note.noteTitle ? "#0166FF" : "inherit"
+                                }}
+                            >
+                                {information === note.noteTitle ? "Back" : `${note.noteTitle}`}
+                            </div>
+                            <div style={{ display: information ? "flex" : "flex", cursor: "pointer" }}>
+                                {
+                                    id === note.noteId ?
+                                        (
+                                            <div style={{ display: 'flex', justifyContent:'center',alignItems:'center'}}>
+                                                <div  onClick={() => handleDelete(note._id)} style={{color:'grey',marginTop:'10px'}}><MdDeleteOutline /></div>
+                                               <div><EditNote notes={notes} setNotes={setNotes} note={note}/></div>
+                                            </div>
+                                        ) : null
+                                }
+
+                            </div>
                         </div>
-                        <div style={{ display: information ? "flex" : "flex", cursor: "pointer" }} onClick={() => handleDelete(note._id)}>
-                            <MdDeleteOutline />
+                        {information === note.noteTitle && (
+                            <div
+                                style={{
+                                    width: "100%",
+                                    padding: "10px 50px",
+                                    borderRadius: "20px",
+                                    color: 'black'
+                                }}
+                            >
+                                {note.note}
+                            </div>
+                        )}
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ color: 'D1D5DB', fontSize: '13px' }}>
+                            {note.createdAt}
+
+                            </div>
                         </div>
                     </div>
-                    {information === note.noteTitle && (
-                        <div
-                            style={{
-                                width: "100%",
-                                padding: "10px 50px",
-                                borderRadius: "20px",
-                            }}
-                        >
-                        
-                                {note.note}
-                            
-                        </div>
-                    )}
-                </div>
-            ))}
+                ))}
         </div>
     );
 };
